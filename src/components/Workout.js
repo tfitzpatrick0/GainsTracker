@@ -1,10 +1,22 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { StyleSheet, View, Text } from "react-native";
 
-export default function Workout() {
+export default function Workout(props) {
   return (
-    <View>
-      <Text>Workout</Text>
+    <View style={styles.item}>
+      <Text style={styles.text}>{props.text}</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  item: {
+    marginVertical: 5,
+    borderRadius: 5,
+    backgroundColor: "#fff",
+  },
+  text: {
+    padding: 10,
+    fontSize: 15,
+  },
+});
