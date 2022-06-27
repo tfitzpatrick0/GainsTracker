@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>My gains tracker.</Text>
+      <Text>My gains tracker. Live update?</Text>
       <StatusBar style="auto" />
     </View>
   );
