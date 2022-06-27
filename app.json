@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "progress-tracker",
-    "slug": "progress-tracker",
+    "name": "gains-tracker",
+    "slug": "gains-tracker",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ]
   },
-  "name": "progress-tracker"
+  "name": "gains-tracker"
 }

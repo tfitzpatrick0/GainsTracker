@@ -1,4 +1,4 @@
-package com.progresstracker;
+package com.gainstracker;
 
 import android.os.Build;
 import android.os.Bundle;
