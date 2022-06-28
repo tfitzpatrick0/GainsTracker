@@ -24,6 +24,7 @@ export default function Exercises(props) {
       resExercises.push(exercise.name);
     });
 
+    console.log(resExercises);
     setExercises(resExercises);
   }
 
@@ -32,9 +33,9 @@ export default function Exercises(props) {
       <TouchableOpacity onPress={() => requestExercises(bodypart)}>
         <Text>{bodypart}</Text>
       </TouchableOpacity>
-      {exercises.map((exercise, index) => {
+      {/* {exercises.map((exercise, index) => {
         return <Text key={index}>{exercise}</Text>;
-      })}
+      })} */}
     </View>
   );
 }
