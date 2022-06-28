@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import Workout from "../components/Workout";
 
-export default function WorkoutsScreen() {
+export default function WorkoutsScreen({ navigation }) {
   const [workout, setWorkout] = useState();
   const [workoutItems, setWorkoutItems] = useState([]);
 
@@ -21,14 +21,25 @@ export default function WorkoutsScreen() {
     setWorkout(null);
   };
 
+  const modifyWorkout = (index) => {
+    navigation.navigate("ModWorkout", { index });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.workoutsWrapper}>
         <Text style={styles.headerText}>Workouts</Text>
         <View style={styles.workouts}>
           {/* Workouts get mapped here */}
-          {workoutItems.map((workout) => {
-            return <Workout text={workout} key={workout} />;
+          {workoutItems.map((workout, index) => {
+            return (
+              <TouchableOpacity
+                key={index}
+                onPress={() => modifyWorkout(index)}
+              >
+                <Workout text={workout} />
+              </TouchableOpacity>
+            );
           })}
         </View>
       </View>
