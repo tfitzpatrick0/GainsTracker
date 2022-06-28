@@ -5,6 +5,7 @@ import exercisesList from "../constants/exercisesList";
 export default function Exercises(props) {
   const { bodypart, handleAddExercise } = props;
   const exerciseItems = exercisesList[bodypart];
+
   const [display, setDisplay] = useState(false);
 
   // Use API calls to get exercises for each bodypart:
