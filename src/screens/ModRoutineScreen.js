@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Exercises from "../components/Exercises";
+import bodypartsList from "../constants/bodypartsList";
 
 // Modify a workout workout
 export default function ModRoutineScreen({ navigation, route }) {
@@ -15,19 +16,6 @@ export default function ModRoutineScreen({ navigation, route }) {
 
   const { index, currRelExercises, handleRelExercises } = route.params;
   const [myExercises, setMyExercises] = useState(currRelExercises);
-
-  const bodyparts = [
-    "back",
-    "cardio",
-    "chest",
-    "lower arms",
-    "lower legs",
-    "neck",
-    "shoulders",
-    "upper arms",
-    "upper legs",
-    "waist",
-  ];
 
   const handleAddExercise = (exercise) => {
     setMyExercises([...myExercises, exercise]);
@@ -72,7 +60,7 @@ export default function ModRoutineScreen({ navigation, route }) {
           <Text style={styles.headerText}>Add Exercises</Text>
           <View style={styles.exercises}>
             {/* Exercises get displayed here */}
-            {bodyparts.map((bodypart) => {
+            {bodypartsList.map((bodypart) => {
               return (
                 <Exercises
                   key={bodypart}
