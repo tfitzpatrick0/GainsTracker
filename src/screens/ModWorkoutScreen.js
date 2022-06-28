@@ -1,40 +1,56 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import Exercises from "../components/Exercises";
 
 // Modify a workout workout
 export default function ModWorkoutScreen({ navigation, route }) {
   // console.log(route);
-
-  const [exercises, setExercises] = useState([]);
-
-  async function requestExercises(bodyPart) {
-    const res = await fetch(
-      `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
-      {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "e31bc1956amsh3e0ba5640539766p19f594jsn0c57823ec54a",
-          "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-        },
-      }
-    );
-    const json = await res.json();
-
-    console.log(json);
-
-    json.forEach((element) => {
-      console.log(element.name);
-    });
-  }
-
-  // requestExercises();
+  const bodyparts = [
+    "back",
+    "cardio",
+    "chest",
+    "lower arms",
+    "lower legs",
+    "neck",
+    "shoulders",
+    "upper arms",
+    "upper legs",
+    "waist",
+  ];
 
   return (
-    <View>
-      <Text>Hey</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+      >
+        <View style={styles.exercisesWrapper}>
+          <Text style={styles.headerText}>Exercises</Text>
+          <View style={styles.exercises}>
+            {/* Exercises get displayed here */}
+            {bodyparts.map((bodypart, index) => {
+              return <Exercises key={index} bodypart={bodypart} />;
+            })}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ddd",
+  },
+  exercisesWrapper: {
+    paddingTop: 50,
+    paddingHorizontal: 20,
+  },
+  headerText: {
+    alignSelf: "center",
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+});

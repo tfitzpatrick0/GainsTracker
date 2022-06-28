@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import {
   StyleSheet,
+  Text,
   View,
   SafeAreaView,
-  Text,
   KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
