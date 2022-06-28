@@ -10,7 +10,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Workouts" component={RoutinesScreen} />
+        <Stack.Screen name="Routines" component={RoutinesScreen} />
         <Stack.Screen
           name="ModRoutine"
           component={ModRoutineScreen}
