@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import exercisesList from "../constants/exercisesList";
 
 export default function Exercises(props) {
-  const { bodypart } = props;
-  const exercises = exercisesList[bodypart];
+  const { bodypart, handleAddExercise } = props;
+  const exerciseItems = exercisesList[bodypart];
   const [display, setDisplay] = useState(false);
 
   // Use API calls to get exercises for each bodypart:
@@ -40,8 +40,15 @@ export default function Exercises(props) {
 
   const displayExercises = () => {
     if (display) {
-      return exercises.map((exercise, index) => {
-        return <Text key={index}>{exercise}</Text>;
+      return exerciseItems.map((exercise, index) => {
+        return (
+          <TouchableOpacity
+            key={index}
+            onPress={() => handleAddExercise(exercise)}
+          >
+            <Text>{exercise}</Text>
+          </TouchableOpacity>
+        );
       });
     }
   };
