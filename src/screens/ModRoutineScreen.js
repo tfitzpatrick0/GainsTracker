@@ -39,7 +39,6 @@ export default function ModRoutineScreen({ navigation, route }) {
   };
 
   const saveRoutine = () => {
-    console.log(index, myExercises);
     let newRelExercises = {};
     newRelExercises = { [index]: myExercises };
     handleRelExercises(newRelExercises);
