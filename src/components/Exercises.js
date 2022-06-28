@@ -1,41 +1,57 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import exercisesList from "../constants/exercisesList";
 
 export default function Exercises(props) {
   const { bodypart } = props;
-  const [exercises, setExercises] = useState([]);
+  const exercises = exercisesList[bodypart];
+  const [display, setDisplay] = useState(false);
 
-  async function requestExercises(bodyPart) {
-    const res = await fetch(
-      `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
-      {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Key":
-            "e31bc1956amsh3e0ba5640539766p19f594jsn0c57823ec54a",
-          "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-        },
-      }
-    );
-    const json = await res.json();
+  // Use API calls to get exercises for each bodypart:
+  // limited by allowed number of API calls, store as constant values instead
 
-    let resExercises = [];
-    json.forEach((exercise) => {
-      resExercises.push(exercise.name);
-    });
+  // const [exercises, setExercises] = useState([]);
 
-    console.log(resExercises);
-    setExercises(resExercises);
-  }
+  // async function requestExercises(bodyPart) {
+  //   const res = await fetch(
+  //     `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "X-RapidAPI-Key":
+  //           "e31bc1956amsh3e0ba5640539766p19f594jsn0c57823ec54a",
+  //         "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+  //       },
+  //     }
+  //   );
+  //   const json = await res.json();
+
+  //   let resExercises = [];
+  //   json.forEach((exercise) => {
+  //     resExercises.push(exercise.name);
+  //   });
+
+  //   setExercises(resExercises);
+  // }
+
+  const toggleDisplay = () => {
+    setDisplay(!display);
+  };
+
+  const displayExercises = () => {
+    if (display) {
+      return exercises.map((exercise, index) => {
+        return <Text key={index}>{exercise}</Text>;
+      });
+    }
+  };
 
   return (
     <View>
-      <TouchableOpacity onPress={() => requestExercises(bodypart)}>
+      <TouchableOpacity onPress={() => toggleDisplay()}>
         <Text>{bodypart}</Text>
       </TouchableOpacity>
-      {/* {exercises.map((exercise, index) => {
-        return <Text key={index}>{exercise}</Text>;
-      })} */}
+      {displayExercises()}
     </View>
   );
 }

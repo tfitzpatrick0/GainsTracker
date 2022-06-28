@@ -1,4 +1,4 @@
-exercisesList = {
+export default exercisesList = {
   back: [
     "alternate lateral pulldown",
     "archer pull up",
