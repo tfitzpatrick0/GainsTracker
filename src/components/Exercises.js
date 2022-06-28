@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import exercisesList from "../constants/exercisesList";
 
 export default function Exercises(props) {
-  const { bodypart, handleAddExercise } = props;
+  const { bodypart, callOnPress } = props;
   const exerciseItems = exercisesList[bodypart];
 
   const [display, setDisplay] = useState(false);
@@ -43,10 +43,7 @@ export default function Exercises(props) {
     if (display) {
       return exerciseItems.map((exercise, index) => {
         return (
-          <TouchableOpacity
-            key={index}
-            onPress={() => handleAddExercise(exercise)}
-          >
+          <TouchableOpacity key={index} onPress={() => callOnPress(exercise)}>
             <Text>{exercise}</Text>
           </TouchableOpacity>
         );

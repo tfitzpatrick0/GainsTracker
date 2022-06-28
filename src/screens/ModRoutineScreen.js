@@ -12,6 +12,10 @@ import Exercises from "../components/Exercises";
 // Modify a workout workout
 export default function ModRoutineScreen({ navigation, route }) {
   // console.log(route);
+
+  const { index, currRelExercises, handleRelExercises } = route.params;
+  const [myExercises, setMyExercises] = useState(currRelExercises);
+
   const bodyparts = [
     "back",
     "cardio",
@@ -25,8 +29,6 @@ export default function ModRoutineScreen({ navigation, route }) {
     "waist",
   ];
 
-  const [myExercises, setMyExercises] = useState([]);
-
   const handleAddExercise = (exercise) => {
     setMyExercises([...myExercises, exercise]);
   };
@@ -34,6 +36,14 @@ export default function ModRoutineScreen({ navigation, route }) {
   const handleRemoveExercise = (index) => {
     myExercises.splice(index, 1);
     setMyExercises([...myExercises]);
+  };
+
+  const saveRoutine = () => {
+    console.log(index, myExercises);
+    let newRelExercises = {};
+    newRelExercises = { [index]: myExercises };
+    handleRelExercises(newRelExercises);
+    navigation.navigate("Routines");
   };
 
   return (
@@ -44,6 +54,9 @@ export default function ModRoutineScreen({ navigation, route }) {
         }}
       >
         <View style={styles.exercisesWrapper}>
+          <TouchableOpacity onPress={() => saveRoutine()}>
+            <Text style={styles.headerText}>Go Back</Text>
+          </TouchableOpacity>
           <Text style={styles.headerText}>Your Exercises</Text>
           <View style={styles.exercises}>
             {myExercises.map((exercise, index) => {
@@ -65,7 +78,7 @@ export default function ModRoutineScreen({ navigation, route }) {
                 <Exercises
                   key={bodypart}
                   bodypart={bodypart}
-                  handleAddExercise={handleAddExercise}
+                  callOnPress={handleAddExercise}
                 />
               );
             })}

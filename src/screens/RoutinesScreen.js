@@ -14,6 +14,15 @@ import Routine from "../components/Routine";
 export default function RoutinesScreen({ navigation }) {
   const [routine, setRoutine] = useState();
   const [routineItems, setRoutineItems] = useState([]);
+  const [relExercises, setRelExercises] = useState({});
+
+  const handleRelExercises = (newRelExercises) => {
+    console.log(newRelExercises);
+    setRelExercises((relExercises) => ({
+      ...relExercises,
+      ...newRelExercises,
+    }));
+  };
 
   const handleAddRoutine = () => {
     Keyboard.dismiss();
@@ -22,7 +31,16 @@ export default function RoutinesScreen({ navigation }) {
   };
 
   const modifyRoutine = (index) => {
-    navigation.navigate("ModRoutine", { index });
+    let currRelExercises = [];
+    if (relExercises[index]) {
+      currRelExercises = relExercises[index];
+    }
+
+    navigation.navigate("ModRoutine", {
+      index,
+      currRelExercises,
+      handleRelExercises,
+    });
   };
 
   return (
@@ -35,7 +53,7 @@ export default function RoutinesScreen({ navigation }) {
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => modifyRoutine(index)}
+                onPress={() => modifyRoutine(index.toString())}
               >
                 <Routine text={routine} />
               </TouchableOpacity>
