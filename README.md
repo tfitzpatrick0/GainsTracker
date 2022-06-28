@@ -8,3 +8,11 @@ EXPO Browser DevTools not displaying:
 - `npx uri-scheme add [project-name]`
 
 API Used: https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb/specs
+
+To use:
+
+- need to sign up for an API account
+- get your key
+- store key in application
+
+~ Need to add a file for storing API key ~
