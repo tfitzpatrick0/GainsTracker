@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Workout(props) {
+export default function Routine(props) {
   return (
     <View style={styles.item}>
       <Text style={styles.text}>{props.text}</Text>

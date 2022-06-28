@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import Exercises from "../components/Exercises";
 
 // Modify a workout workout
-export default function ModWorkoutScreen({ navigation, route }) {
+export default function ModRoutineScreen({ navigation, route }) {
   // console.log(route);
   const bodyparts = [
     "back",
