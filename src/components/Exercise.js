@@ -70,23 +70,6 @@ export default function Exercise(props) {
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-
-      {/* <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.newRoutineWrapper}
-      >
-        <TextInput
-          style={styles.textInput}
-          placeholder={"Add a routine"}
-          value={routine}
-          onChangeText={(text) => setRoutine(text)}
-        />
-        <TouchableOpacity onPress={() => handleAddRoutine()}>
-          <View style={styles.addWrapper}>
-            <Text>Add</Text>
-          </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView> */}
     </View>
   );
 }
