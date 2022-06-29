@@ -22,17 +22,17 @@ export default function RoutinesScreen({ navigation, route }) {
     setRoutine(null);
   };
 
-  const handleRelExercises = (newRelExercises) => {
-    console.log(newRelExercises);
+  const handleRelExercises = (updatedRelExercises) => {
+    console.log(updatedRelExercises);
     setRelExercises((relExercises) => ({
       ...relExercises,
-      ...newRelExercises,
+      ...updatedRelExercises,
     }));
   };
 
   useEffect(() => {
-    if ("newRelExercises" in route.params) {
-      handleRelExercises(route.params.newRelExercises);
+    if ("updatedRelExercises" in route.params) {
+      handleRelExercises(route.params.updatedRelExercises);
     }
   }, [route.params]);
 

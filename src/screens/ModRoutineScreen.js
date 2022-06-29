@@ -25,9 +25,9 @@ export default function ModRoutineScreen({ navigation, route }) {
   };
 
   const saveRoutine = () => {
-    let newRelExercises = { [index]: myExercises };
-    console.log(newRelExercises);
-    navigation.navigate("Routines", { newRelExercises });
+    let updatedRelExercises = { [index]: myExercises };
+    console.log(updatedRelExercises);
+    navigation.navigate("Routines", { updatedRelExercises });
   };
 
   return (
