@@ -6,15 +6,15 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  DeviceEventEmitter,
 } from "react-native";
 import Exercises from "../components/Exercises";
 import bodypartsList from "../constants/bodypartsList";
 
 // Modify a workout workout
 export default function ModRoutineScreen({ navigation, route }) {
-  // console.log(route);
-
-  const { index, currRelExercises, handleRelExercises } = route.params;
+  // const { index, currRelExercises, handleRelExercises } = route.params;
+  const { index, currRelExercises } = route.params;
   const [myExercises, setMyExercises] = useState(currRelExercises);
 
   const handleAddExercise = (exercise) => {
@@ -29,7 +29,9 @@ export default function ModRoutineScreen({ navigation, route }) {
   const saveRoutine = () => {
     let newRelExercises = {};
     newRelExercises = { [index]: myExercises };
-    handleRelExercises(newRelExercises);
+    // handleRelExercises(newRelExercises);
+    DeviceEventEmitter.emit("event.modRoutine", newRelExercises);
+    DeviceEventEmitter.removeAllListeners("event.modRoutine");
     navigation.navigate("Routines");
   };
 
