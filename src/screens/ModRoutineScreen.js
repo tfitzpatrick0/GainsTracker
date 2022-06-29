@@ -7,7 +7,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import Exercises from "../components/Exercises";
+import Exercise from "../components/Exercise";
+import ExercisesDisplay from "../components/ExercisesDisplay";
 import bodypartsList from "../constants/bodypartsList";
 
 // Modify a workout workout
@@ -45,12 +46,12 @@ export default function ModRoutineScreen({ navigation, route }) {
           <View style={styles.exercises}>
             {myExercises.map((exercise, index) => {
               return (
-                <TouchableOpacity
+                <Exercise
                   key={index}
-                  onPress={() => handleRemoveExercise(index)}
-                >
-                  <Text>{exercise}</Text>
-                </TouchableOpacity>
+                  index={index}
+                  exercise={exercise}
+                  handleRemoveExercise={handleRemoveExercise}
+                />
               );
             })}
           </View>
@@ -59,7 +60,7 @@ export default function ModRoutineScreen({ navigation, route }) {
             {/* Exercises get displayed here */}
             {bodypartsList.map((bodypart) => {
               return (
-                <Exercises
+                <ExercisesDisplay
                   key={bodypart}
                   bodypart={bodypart}
                   callOnPress={handleAddExercise}

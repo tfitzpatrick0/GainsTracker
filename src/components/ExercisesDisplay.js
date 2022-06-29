@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import exercisesMap from "../constants/exercisesMap";
 
-export default function Exercises(props) {
+export default function ExercisesDisplay(props) {
   const { bodypart, callOnPress } = props;
   const exercisesList = exercisesMap[bodypart];
   const [display, setDisplay] = useState(false);
@@ -38,7 +38,7 @@ export default function Exercises(props) {
     setDisplay(!display);
   };
 
-  const displayExercises = () => {
+  const renderDisplay = () => {
     if (display) {
       return exercisesList.map((exercise, index) => {
         return (
@@ -55,7 +55,7 @@ export default function Exercises(props) {
       <TouchableOpacity onPress={() => toggleDisplay()}>
         <Text>{bodypart}</Text>
       </TouchableOpacity>
-      {displayExercises()}
+      {renderDisplay()}
     </View>
   );
 }

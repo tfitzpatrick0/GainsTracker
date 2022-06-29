@@ -10,11 +10,15 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Routines" component={RoutinesScreen} />
+        <Stack.Screen
+          name="Routines"
+          component={RoutinesScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="ModRoutine"
           component={ModRoutineScreen}
-          options={{ title: "Modify Workout Routine" }}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

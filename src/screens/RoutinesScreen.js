@@ -4,9 +4,9 @@ import {
   Text,
   View,
   SafeAreaView,
+  TouchableOpacity,
   KeyboardAvoidingView,
   TextInput,
-  TouchableOpacity,
   Keyboard,
 } from "react-native";
 import Routine from "../components/Routine";
@@ -31,8 +31,10 @@ export default function RoutinesScreen({ navigation, route }) {
   };
 
   useEffect(() => {
-    if ("updatedRelExercises" in route.params) {
-      handleRelExercises(route.params.updatedRelExercises);
+    if (route.params) {
+      if ("updatedRelExercises" in route.params) {
+        handleRelExercises(route.params.updatedRelExercises);
+      }
     }
   }, [route.params]);
 
