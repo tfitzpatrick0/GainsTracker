@@ -31,7 +31,7 @@ export default function RoutinesScreen({ navigation, route }) {
   };
 
   useEffect(() => {
-    if (route.params.newRelExercises) {
+    if ("newRelExercises" in route.params) {
       handleRelExercises(route.params.newRelExercises);
     }
   }, [route.params]);
