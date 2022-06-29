@@ -6,15 +6,13 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  DeviceEventEmitter,
 } from "react-native";
 import Exercises from "../components/Exercises";
 import bodypartsList from "../constants/bodypartsList";
 
 // Modify a workout workout
 export default function ModRoutineScreen({ navigation, route }) {
-  // const { index, currRelExercises, handleRelExercises } = route.params;
-  const { index, currRelExercises } = route.params;
+  const { index, routineName, currRelExercises } = route.params;
   const [myExercises, setMyExercises] = useState(currRelExercises);
 
   const handleAddExercise = (exercise) => {
@@ -27,12 +25,9 @@ export default function ModRoutineScreen({ navigation, route }) {
   };
 
   const saveRoutine = () => {
-    let newRelExercises = {};
-    newRelExercises = { [index]: myExercises };
-    // handleRelExercises(newRelExercises);
-    DeviceEventEmitter.emit("event.modRoutine", newRelExercises);
-    DeviceEventEmitter.removeAllListeners("event.modRoutine");
-    navigation.navigate("Routines");
+    let newRelExercises = { [index]: myExercises };
+    console.log(newRelExercises);
+    navigation.navigate("Routines", { newRelExercises });
   };
 
   return (
@@ -46,7 +41,7 @@ export default function ModRoutineScreen({ navigation, route }) {
           <TouchableOpacity onPress={() => saveRoutine()}>
             <Text style={styles.headerText}>Go Back</Text>
           </TouchableOpacity>
-          <Text style={styles.headerText}>Your Exercises</Text>
+          <Text style={styles.headerText}>{routineName}</Text>
           <View style={styles.exercises}>
             {myExercises.map((exercise, index) => {
               return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,14 +8,19 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
-  DeviceEventEmitter,
 } from "react-native";
 import Routine from "../components/Routine";
 
-export default function RoutinesScreen({ navigation }) {
+export default function RoutinesScreen({ navigation, route }) {
   const [routine, setRoutine] = useState();
   const [routineItems, setRoutineItems] = useState([]);
   const [relExercises, setRelExercises] = useState({});
+
+  const handleAddRoutine = () => {
+    Keyboard.dismiss();
+    setRoutineItems([...routineItems, routine]);
+    setRoutine(null);
+  };
 
   const handleRelExercises = (newRelExercises) => {
     console.log(newRelExercises);
@@ -25,30 +30,23 @@ export default function RoutinesScreen({ navigation }) {
     }));
   };
 
-  const handleAddRoutine = () => {
-    Keyboard.dismiss();
-    setRoutineItems([...routineItems, routine]);
-    setRoutine(null);
-  };
-
-  // On first call from unique modRoutineScreen, callback function is executed multiple times?
-  DeviceEventEmitter.addListener("event.modRoutine", (newRelExercises) =>
-    handleRelExercises(newRelExercises)
-  );
+  useEffect(() => {
+    if (route.params.newRelExercises) {
+      handleRelExercises(route.params.newRelExercises);
+    }
+  }, [route.params]);
 
   const modifyRoutine = (index) => {
     let currRelExercises = [];
+    let routineName = routineItems[index];
+
     if (relExercises[index]) {
       currRelExercises = relExercises[index];
     }
 
-    // navigation.navigate("ModRoutine", {
-    //   index,
-    //   currRelExercises,
-    //   handleRelExercises,
-    // });
     navigation.navigate("ModRoutine", {
       index,
+      routineName,
       currRelExercises,
     });
   };
