@@ -20,11 +20,13 @@ export default function Exercise(props) {
 
   const handleSetsAndReps = () => {
     Keyboard.dismiss();
-    setMySetsAndReps((mySetsAndReps) => ({
-      ...mySetsAndReps,
-      mySets: sets,
-      myReps: reps,
-    }));
+    if (sets && reps) {
+      setMySetsAndReps((mySetsAndReps) => ({
+        ...mySetsAndReps,
+        mySets: sets,
+        myReps: reps,
+      }));
+    }
     setSets(null);
     setReps(null);
   };
