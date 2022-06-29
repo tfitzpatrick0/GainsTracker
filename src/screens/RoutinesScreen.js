@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
+  DeviceEventEmitter,
 } from "react-native";
 import Routine from "../components/Routine";
 
@@ -30,16 +31,25 @@ export default function RoutinesScreen({ navigation }) {
     setRoutine(null);
   };
 
+  // On first call from unique modRoutineScreen, callback function is executed multiple times?
+  DeviceEventEmitter.addListener("event.modRoutine", (newRelExercises) =>
+    handleRelExercises(newRelExercises)
+  );
+
   const modifyRoutine = (index) => {
     let currRelExercises = [];
     if (relExercises[index]) {
       currRelExercises = relExercises[index];
     }
 
+    // navigation.navigate("ModRoutine", {
+    //   index,
+    //   currRelExercises,
+    //   handleRelExercises,
+    // });
     navigation.navigate("ModRoutine", {
       index,
       currRelExercises,
-      handleRelExercises,
     });
   };
 
