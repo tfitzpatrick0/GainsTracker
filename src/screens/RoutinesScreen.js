@@ -9,6 +9,7 @@ import {
   TextInput,
   Keyboard,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Routine from "../components/Routine";
 
 export default function RoutinesScreen({ navigation, route }) {
@@ -16,10 +17,38 @@ export default function RoutinesScreen({ navigation, route }) {
   const [routineItems, setRoutineItems] = useState([]);
   const [relExercises, setRelExercises] = useState({});
 
+  const initRoutineItems = async () => {
+    const keys = await AsyncStorage.getAllKeys();
+    setRoutineItems(keys);
+  };
+
+  const storeRoutine = async (key) => {
+    try {
+      await AsyncStorage.setItem(key, "hello");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const removeRoutine = async (key) => {
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const handleAddRoutine = () => {
+    storeRoutine(routine);
     Keyboard.dismiss();
     setRoutineItems([...routineItems, routine]);
     setRoutine(null);
+  };
+
+  const handleRemoveRoutine = (index) => {
+    removeRoutine(routineItems[index]);
+    routineItems.splice(index, 1);
+    setRoutineItems([...routineItems]);
   };
 
   const handleRelExercises = (updatedRelExercises) => {
@@ -30,43 +59,58 @@ export default function RoutinesScreen({ navigation, route }) {
     }));
   };
 
+  // useEffect(() => {
+  //   if (route.params) {
+  //     if ("updatedRelExercises" in route.params) {
+  //       handleRelExercises(route.params.updatedRelExercises);
+  //     }
+  //   }
+  // }, [route.params]);
+
   useEffect(() => {
-    if (route.params) {
-      if ("updatedRelExercises" in route.params) {
-        handleRelExercises(route.params.updatedRelExercises);
-      }
-    }
-  }, [route.params]);
+    initRoutineItems();
+  }, []);
 
   const modifyRoutine = (index) => {
-    let currRelExercises = [];
-    let routineName = routineItems[index];
-
-    if (relExercises[index]) {
-      currRelExercises = relExercises[index];
-    }
-
-    navigation.navigate("ModRoutine", {
-      index,
-      routineName,
-      currRelExercises,
-    });
+    console.log(index);
   };
+
+  // const modifyRoutine = (index) => {
+  //   let currRelExercises = [];
+  //   let routineName = routineItems[index];
+
+  //   if (relExercises[index]) {
+  //     currRelExercises = relExercises[index];
+  //   }
+
+  //   navigation.navigate("ModRoutine", {
+  //     index,
+  //     routineName,
+  //     currRelExercises,
+  //   });
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => viewAllKeys()}>
+        <Text style={styles.headerText}>Test</Text>
+      </TouchableOpacity>
       <View style={styles.routinesWrapper}>
         <Text style={styles.headerText}>Routines</Text>
         <View style={styles.routines}>
           {/* Routines get mapped here */}
           {routineItems.map((routine, index) => {
             return (
-              <TouchableOpacity
-                key={index}
-                onPress={() => modifyRoutine(index.toString())}
-              >
-                <Routine text={routine} />
-              </TouchableOpacity>
+              <View key={index}>
+                <TouchableOpacity
+                  onPress={() => modifyRoutine(index.toString())}
+                >
+                  <Routine text={routine} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleRemoveRoutine(index)}>
+                  <Text>-</Text>
+                </TouchableOpacity>
+              </View>
             );
           })}
         </View>
