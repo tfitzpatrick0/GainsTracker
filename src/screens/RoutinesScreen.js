@@ -69,7 +69,7 @@ export default function RoutinesScreen({ navigation }) {
   }, []);
 
   const navModRoutine = (routine) => {
-    console.log("Modifying routine: ", routine);
+    console.log("NAVIGATING - Modifying routine: ", routine);
 
     navigation.navigate("ModRoutine", {
       routine,

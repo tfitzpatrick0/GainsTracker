@@ -64,20 +64,22 @@ export default function ModRoutineScreen({ navigation, route }) {
   };
 
   const handleAddExercise = (exercise) => {
-    const exerciseTemplate = { exercise: exercise, sets: null, reps: null };
-    storageAddExercise(routine, JSON.stringify(exerciseTemplate));
+    // const exerciseTemplate = { exercise: exercise, sets: null, reps: null };
+    // storageAddExercise(routine, JSON.stringify(exerciseTemplate));
     setMyExercises([...myExercises, exercise]);
   };
 
   const handleRemoveExercise = (index) => {
-    storageRemoveExercise(routine, index);
+    console.log("Handle remove exercise");
+    // storageRemoveExercise(routine, index);
     myExercises.splice(index, 1);
     setMyExercises([...myExercises]);
+    console.log("MY EXERCISES:", myExercises);
   };
 
-  useEffect(() => {
-    initMyExercises();
-  }, []);
+  // useEffect(() => {
+  //   initMyExercises();
+  // }, []);
 
   const navRoutines = () => {
     navigation.navigate("Routines");
@@ -100,7 +102,7 @@ export default function ModRoutineScreen({ navigation, route }) {
               return (
                 <Exercise
                   key={index}
-                  routine={routine}
+                  // routine={routine}
                   index={index}
                   exercise={exercise}
                   handleRemoveExercise={handleRemoveExercise}

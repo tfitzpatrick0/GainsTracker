@@ -11,7 +11,8 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Exercise(props) {
-  const { routine, index, exercise, handleRemoveExercise } = props;
+  // const { routine, index, exercise, handleRemoveExercise } = props;
+  const { index, exercise, handleRemoveExercise } = props;
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
   const [mySetsAndReps, setMySetsAndReps] = useState({
@@ -21,11 +22,13 @@ export default function Exercise(props) {
 
   const initSetsAndReps = async () => {
     try {
+      console.log("Initializing sets and reps: ", exercise);
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
       let currExerciseTemplate = JSON.parse(currRoutine[index]);
+      console.log(currExerciseTemplate);
 
       if (currExerciseTemplate.sets && currExerciseTemplate.reps) {
-        console.log("Initializing sets and reps: ", exercise);
+        console.log("Sets and reps already exist: ", exercise);
         setMySetsAndReps((mySetsAndReps) => ({
           ...mySetsAndReps,
           mySets: currExerciseTemplate.sets,
@@ -58,7 +61,7 @@ export default function Exercise(props) {
   const handleSetsAndReps = () => {
     Keyboard.dismiss();
     if (sets && reps) {
-      storageSetsAndReps(sets, reps);
+      // storageSetsAndReps(sets, reps);
       setMySetsAndReps((mySetsAndReps) => ({
         ...mySetsAndReps,
         mySets: sets,
@@ -84,9 +87,9 @@ export default function Exercise(props) {
     }
   };
 
-  useEffect(() => {
-    initSetsAndReps();
-  }, []);
+  // useEffect(() => {
+  //   initSetsAndReps();
+  // }, []);
 
   return (
     <View>
