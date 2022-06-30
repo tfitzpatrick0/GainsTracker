@@ -12,89 +12,81 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Routine from "../components/Routine";
 
-export default function RoutinesScreen({ navigation, route }) {
+export default function RoutinesScreen({ navigation }) {
   const [routine, setRoutine] = useState();
   const [routineItems, setRoutineItems] = useState([]);
-  const [relExercises, setRelExercises] = useState({});
 
-  const initRoutineItems = async () => {
-    const keys = await AsyncStorage.getAllKeys();
-    setRoutineItems(keys);
+  const clearAsyncStorage = async () => {
+    AsyncStorage.clear();
   };
 
-  const storeRoutine = async (key) => {
+  const initRoutineItems = async () => {
     try {
-      await AsyncStorage.setItem(key, "hello");
+      const keys = await AsyncStorage.getAllKeys();
+      console.log("ROUTINES: ", keys);
+      setRoutineItems(keys);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const removeRoutine = async (key) => {
+  const storageAddRoutine = async (routine) => {
     try {
-      await AsyncStorage.removeItem(key);
+      await AsyncStorage.setItem(routine, JSON.stringify([]));
+      console.log("Added routine: ", routine);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const storageRemoveRoutine = async (routine) => {
+    try {
+      await AsyncStorage.removeItem(routine);
+      console.log("Removed routine: ", routine);
     } catch (e) {
       console.log(e);
     }
   };
 
   const handleAddRoutine = () => {
-    storeRoutine(routine);
     Keyboard.dismiss();
-    setRoutineItems([...routineItems, routine]);
+    // Only include unique routine names - use as key for AsyncStorage
+    if (routine && !routineItems.includes(routine)) {
+      storageAddRoutine(routine);
+      setRoutineItems([...routineItems, routine]);
+    }
     setRoutine(null);
   };
 
   const handleRemoveRoutine = (index) => {
-    removeRoutine(routineItems[index]);
+    storageRemoveRoutine(routineItems[index]);
     routineItems.splice(index, 1);
     setRoutineItems([...routineItems]);
   };
-
-  const handleRelExercises = (updatedRelExercises) => {
-    console.log(updatedRelExercises);
-    setRelExercises((relExercises) => ({
-      ...relExercises,
-      ...updatedRelExercises,
-    }));
-  };
-
-  // useEffect(() => {
-  //   if (route.params) {
-  //     if ("updatedRelExercises" in route.params) {
-  //       handleRelExercises(route.params.updatedRelExercises);
-  //     }
-  //   }
-  // }, [route.params]);
 
   useEffect(() => {
     initRoutineItems();
   }, []);
 
-  const modifyRoutine = (index) => {
-    console.log(index);
+  const navModRoutine = (routine) => {
+    console.log("Modifying routine: ", routine);
+
+    navigation.navigate("ModRoutine", {
+      routine,
+    });
   };
-
-  // const modifyRoutine = (index) => {
-  //   let currRelExercises = [];
-  //   let routineName = routineItems[index];
-
-  //   if (relExercises[index]) {
-  //     currRelExercises = relExercises[index];
-  //   }
-
-  //   navigation.navigate("ModRoutine", {
-  //     index,
-  //     routineName,
-  //     currRelExercises,
-  //   });
-  // };
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => viewAllKeys()}>
-        <Text style={styles.headerText}>Test</Text>
+      {/* TESTING FUNCTIONS */}
+      <TouchableOpacity onPress={() => clearAsyncStorage()}>
+        <Text>Clear Async Storage</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => initRoutineItems()}>
+        <Text style={styles.headerText}>Init Routines</Text>
+      </TouchableOpacity>
+      {/* END TESTING FUNCTIONS */}
+
       <View style={styles.routinesWrapper}>
         <Text style={styles.headerText}>Routines</Text>
         <View style={styles.routines}>
@@ -102,9 +94,7 @@ export default function RoutinesScreen({ navigation, route }) {
           {routineItems.map((routine, index) => {
             return (
               <View key={index}>
-                <TouchableOpacity
-                  onPress={() => modifyRoutine(index.toString())}
-                >
+                <TouchableOpacity onPress={() => navModRoutine(routine)}>
                   <Routine text={routine} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleRemoveRoutine(index)}>
