@@ -78,7 +78,6 @@ export default function Exercise(props) {
     if (mySetsAndReps.mySets && mySetsAndReps.myReps) {
       return (
         <View style={styles.setsAndReps}>
-          <Text>Index: {index}</Text>
           <Text style={styles.setsAndRepsText}>
             Sets: {mySetsAndReps.mySets}
           </Text>
@@ -92,7 +91,7 @@ export default function Exercise(props) {
 
   useEffect(() => {
     initSetsAndReps();
-  }, []);
+  }, [exercise]);
 
   return (
     <View>

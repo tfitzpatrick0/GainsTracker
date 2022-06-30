@@ -17,13 +17,6 @@ export default function ModRoutineScreen({ navigation, route }) {
   const { routine } = route.params;
   const [myExercises, setMyExercises] = useState([]);
 
-  const [why, setWhy] = useState(true);
-
-  const toggleWhy = () => {
-    console.log("Toggling why:", why);
-    setWhy(!why);
-  };
-
   const initMyExercises = async () => {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
@@ -65,40 +58,36 @@ export default function ModRoutineScreen({ navigation, route }) {
       // Testing
       const updatedRoutine = JSON.parse(await AsyncStorage.getItem(routine));
       console.log("Removed exercise, updated storage:", updatedRoutine);
-      toggleWhy();
+
+      setMyExercises([]);
+      initMyExercises();
     } catch (e) {
       console.log(e);
     }
   };
 
   const handleAddExercise = (exercise) => {
+    setMyExercises([...myExercises, exercise]);
     const exerciseTemplate = { exercise: exercise, sets: null, reps: null };
     storageAddExercise(routine, JSON.stringify(exerciseTemplate));
-    setMyExercises([...myExercises, exercise]);
   };
 
   const handleRemoveExercise = (index) => {
     storageRemoveExercise(routine, index);
-    myExercises.splice(index, 1);
-    setMyExercises([...myExercises]);
   };
 
   const renderExercises = () => {
-    if (why) {
-      return myExercises.map((exercise, index) => {
-        return (
-          <Exercise
-            key={index}
-            routine={routine}
-            index={index}
-            exercise={exercise}
-            handleRemoveExercise={handleRemoveExercise}
-          />
-        );
-      });
-    } else {
-      setTimeout(toggleWhy, 3000);
-    }
+    return myExercises.map((exercise, index) => {
+      return (
+        <Exercise
+          key={index}
+          routine={routine}
+          index={index}
+          exercise={exercise}
+          handleRemoveExercise={handleRemoveExercise}
+        />
+      );
+    });
   };
 
   useEffect(() => {
@@ -119,9 +108,6 @@ export default function ModRoutineScreen({ navigation, route }) {
         }}
       >
         <View style={styles.exercisesWrapper}>
-          <TouchableOpacity onPress={() => toggleWhy()}>
-            <Text>Toggle Why</Text>
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => navRoutines()}>
             <Text style={styles.headerText}>Go Back</Text>
           </TouchableOpacity>
