@@ -17,6 +17,13 @@ export default function ModRoutineScreen({ navigation, route }) {
   const { routine } = route.params;
   const [myExercises, setMyExercises] = useState([]);
 
+  const [why, setWhy] = useState(true);
+
+  const toggleWhy = () => {
+    console.log("Toggling why:", why);
+    setWhy(!why);
+  };
+
   const initMyExercises = async () => {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
@@ -26,7 +33,7 @@ export default function ModRoutineScreen({ navigation, route }) {
         currRoutine.forEach((exerciseTemplate) => {
           exercises.push(JSON.parse(exerciseTemplate).exercise);
         });
-        console.log("Initializing exercises: ", exercises);
+        console.log("INIT EXERCISES:", exercises);
         setMyExercises(exercises);
       }
     } catch (e) {
@@ -43,7 +50,7 @@ export default function ModRoutineScreen({ navigation, route }) {
 
       // Testing
       const updatedRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      console.log("Added exercise, updated storage: ", updatedRoutine);
+      console.log("Added exercise, updated storage:", updatedRoutine);
     } catch (e) {
       console.log(e);
     }
@@ -57,31 +64,50 @@ export default function ModRoutineScreen({ navigation, route }) {
 
       // Testing
       const updatedRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      console.log("Removed exercise, updated storage: ", updatedRoutine);
+      console.log("Removed exercise, updated storage:", updatedRoutine);
+      toggleWhy();
     } catch (e) {
       console.log(e);
     }
   };
 
   const handleAddExercise = (exercise) => {
-    // const exerciseTemplate = { exercise: exercise, sets: null, reps: null };
-    // storageAddExercise(routine, JSON.stringify(exerciseTemplate));
+    const exerciseTemplate = { exercise: exercise, sets: null, reps: null };
+    storageAddExercise(routine, JSON.stringify(exerciseTemplate));
     setMyExercises([...myExercises, exercise]);
   };
 
   const handleRemoveExercise = (index) => {
-    console.log("Handle remove exercise");
-    // storageRemoveExercise(routine, index);
+    storageRemoveExercise(routine, index);
     myExercises.splice(index, 1);
     setMyExercises([...myExercises]);
-    console.log("MY EXERCISES:", myExercises);
   };
 
-  // useEffect(() => {
-  //   initMyExercises();
-  // }, []);
+  const renderExercises = () => {
+    if (why) {
+      return myExercises.map((exercise, index) => {
+        return (
+          <Exercise
+            key={index}
+            routine={routine}
+            index={index}
+            exercise={exercise}
+            handleRemoveExercise={handleRemoveExercise}
+          />
+        );
+      });
+    } else {
+      setTimeout(toggleWhy, 3000);
+    }
+  };
+
+  useEffect(() => {
+    initMyExercises();
+  }, []);
 
   const navRoutines = () => {
+    console.log("NAVIGATING - Routines");
+
     navigation.navigate("Routines");
   };
 
@@ -93,23 +119,14 @@ export default function ModRoutineScreen({ navigation, route }) {
         }}
       >
         <View style={styles.exercisesWrapper}>
+          <TouchableOpacity onPress={() => toggleWhy()}>
+            <Text>Toggle Why</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => navRoutines()}>
             <Text style={styles.headerText}>Go Back</Text>
           </TouchableOpacity>
           <Text style={styles.headerText}>{routine}</Text>
-          <View style={styles.exercises}>
-            {myExercises.map((exercise, index) => {
-              return (
-                <Exercise
-                  key={index}
-                  // routine={routine}
-                  index={index}
-                  exercise={exercise}
-                  handleRemoveExercise={handleRemoveExercise}
-                />
-              );
-            })}
-          </View>
+          <View style={styles.exercises}>{renderExercises()}</View>
           <Text style={styles.headerText}>Add Exercises</Text>
           <View style={styles.exercises}>
             {/* Exercises get displayed here */}

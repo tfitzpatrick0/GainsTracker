@@ -23,7 +23,7 @@ export default function RoutinesScreen({ navigation }) {
   const initRoutineItems = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
-      console.log("ROUTINES: ", keys);
+      console.log("INIT ROUTINES:", keys);
       setRoutineItems(keys);
     } catch (e) {
       console.log(e);
@@ -33,7 +33,7 @@ export default function RoutinesScreen({ navigation }) {
   const storageAddRoutine = async (routine) => {
     try {
       await AsyncStorage.setItem(routine, JSON.stringify([]));
-      console.log("Added routine: ", routine);
+      console.log("Added routine to storage:", routine);
     } catch (e) {
       console.log(e);
     }
@@ -42,7 +42,7 @@ export default function RoutinesScreen({ navigation }) {
   const storageRemoveRoutine = async (routine) => {
     try {
       await AsyncStorage.removeItem(routine);
-      console.log("Removed routine: ", routine);
+      console.log("Removed routine from storage:", routine);
     } catch (e) {
       console.log(e);
     }
@@ -69,7 +69,7 @@ export default function RoutinesScreen({ navigation }) {
   }, []);
 
   const navModRoutine = (routine) => {
-    console.log("NAVIGATING - Modifying routine: ", routine);
+    console.log("NAVIGATING - ModRoutine: ", routine);
 
     navigation.navigate("ModRoutine", {
       routine,

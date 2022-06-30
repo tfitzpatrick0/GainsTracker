@@ -11,8 +11,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Exercise(props) {
-  // const { routine, index, exercise, handleRemoveExercise } = props;
-  const { index, exercise, handleRemoveExercise } = props;
+  const { routine, index, exercise, handleRemoveExercise } = props;
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
   const [mySetsAndReps, setMySetsAndReps] = useState({
@@ -22,18 +21,21 @@ export default function Exercise(props) {
 
   const initSetsAndReps = async () => {
     try {
-      console.log("Initializing sets and reps: ", exercise);
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      let currExerciseTemplate = JSON.parse(currRoutine[index]);
-      console.log(currExerciseTemplate);
 
-      if (currExerciseTemplate.sets && currExerciseTemplate.reps) {
-        console.log("Sets and reps already exist: ", exercise);
-        setMySetsAndReps((mySetsAndReps) => ({
-          ...mySetsAndReps,
-          mySets: currExerciseTemplate.sets,
-          myReps: currExerciseTemplate.reps,
-        }));
+      // Parsing currRoutine[index] may give undefined error because AsyncStorage at [index] not initialized
+      // Therefore, need to check if index is in range of currRoutine
+      if (currRoutine.length > index) {
+        let currExerciseTemplate = JSON.parse(currRoutine[index]);
+        console.log("INIT SETS AND REPS: ", currExerciseTemplate);
+
+        if (currExerciseTemplate.sets && currExerciseTemplate.reps) {
+          setMySetsAndReps((mySetsAndReps) => ({
+            ...mySetsAndReps,
+            mySets: currExerciseTemplate.sets,
+            myReps: currExerciseTemplate.reps,
+          }));
+        }
       }
     } catch (e) {
       console.log(e);
@@ -61,7 +63,7 @@ export default function Exercise(props) {
   const handleSetsAndReps = () => {
     Keyboard.dismiss();
     if (sets && reps) {
-      // storageSetsAndReps(sets, reps);
+      storageSetsAndReps(sets, reps);
       setMySetsAndReps((mySetsAndReps) => ({
         ...mySetsAndReps,
         mySets: sets,
@@ -76,6 +78,7 @@ export default function Exercise(props) {
     if (mySetsAndReps.mySets && mySetsAndReps.myReps) {
       return (
         <View style={styles.setsAndReps}>
+          <Text>Index: {index}</Text>
           <Text style={styles.setsAndRepsText}>
             Sets: {mySetsAndReps.mySets}
           </Text>
@@ -87,9 +90,9 @@ export default function Exercise(props) {
     }
   };
 
-  // useEffect(() => {
-  //   initSetsAndReps();
-  // }, []);
+  useEffect(() => {
+    initSetsAndReps();
+  }, []);
 
   return (
     <View>
