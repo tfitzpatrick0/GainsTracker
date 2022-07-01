@@ -25,8 +25,8 @@ export default function Exercise(props) {
 
       // Parsing currRoutine[index] may give undefined error because AsyncStorage at [index] not initialized
       // Therefore, need to check if index is in range of currRoutine
-      if (currRoutine.length > index) {
-        let currExerciseTemplate = JSON.parse(currRoutine[index]);
+      if (currRoutine.template.length > index) {
+        let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
         console.log("INIT SETS AND REPS: ", currExerciseTemplate);
 
         if (currExerciseTemplate.sets && currExerciseTemplate.reps) {
@@ -45,7 +45,7 @@ export default function Exercise(props) {
   const storageSetsAndReps = async (sets, reps) => {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      let currExerciseTemplate = JSON.parse(currRoutine[index]);
+      let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
       console.log("currExerciseTemplate: ", currExerciseTemplate);
 
       currExerciseTemplate.sets = sets;
@@ -53,7 +53,7 @@ export default function Exercise(props) {
 
       console.log("Updated currExerciseTemplate: ", currExerciseTemplate);
 
-      currRoutine[index] = JSON.stringify(currExerciseTemplate);
+      currRoutine.template[index] = JSON.stringify(currExerciseTemplate);
       await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
     } catch (e) {
       console.log(e);

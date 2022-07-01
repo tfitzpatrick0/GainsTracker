@@ -20,10 +20,10 @@ export default function TemplateScreen({ navigation, route }) {
   const initMyExercises = async () => {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      if (currRoutine.length > 0) {
+      if (currRoutine.template.length > 0) {
         let exercises = [];
 
-        currRoutine.forEach((exerciseTemplate) => {
+        currRoutine.template.forEach((exerciseTemplate) => {
           exercises.push(JSON.parse(exerciseTemplate).exercise);
         });
         console.log("INIT EXERCISES:", exercises);
@@ -38,7 +38,7 @@ export default function TemplateScreen({ navigation, route }) {
   const storageAddExercise = async (routine, exerciseTemplate) => {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      currRoutine.push(exerciseTemplate);
+      currRoutine.template.push(exerciseTemplate);
       await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
 
       // Testing
@@ -52,7 +52,7 @@ export default function TemplateScreen({ navigation, route }) {
   const storageRemoveExercise = async (routine, index) => {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      currRoutine.splice(index, 1);
+      currRoutine.template.splice(index, 1);
       await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
 
       // Testing
