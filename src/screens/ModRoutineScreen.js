@@ -67,9 +67,9 @@ export default function ModRoutineScreen({ navigation, route }) {
   };
 
   const handleAddExercise = (exercise) => {
+    const exerciseTemplate = { exercise: exercise, sets: null, reps: null };
     storageAddExercise(routine, JSON.stringify(exerciseTemplate));
     setMyExercises([...myExercises, exercise]);
-    const exerciseTemplate = { exercise: exercise, sets: null, reps: null };
   };
 
   const handleRemoveExercise = (index) => {
