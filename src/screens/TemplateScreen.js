@@ -67,7 +67,12 @@ export default function TemplateScreen({ navigation, route }) {
   };
 
   const handleAddExercise = (exercise) => {
-    const exerciseTemplate = { exercise: exercise, sets: null, reps: null };
+    const exerciseTemplate = {
+      exercise: exercise,
+      sets: null,
+      reps: null,
+      weight: null,
+    };
     storageAddExercise(routine, JSON.stringify(exerciseTemplate));
     setMyExercises([...myExercises, exercise]);
   };
@@ -101,11 +106,9 @@ export default function TemplateScreen({ navigation, route }) {
   };
 
   const navHistory = (routine) => {
-    console.log("History screen under development");
-    // console.log("NAVIGATING - History: ", routine);
+    console.log("NAVIGATING - History: ", routine);
 
-    // const routineHistory = routine + "History";
-    // navigation.navigate("History", { routine, routineHistory });
+    navigation.navigate("History", { routine });
   };
 
   return (

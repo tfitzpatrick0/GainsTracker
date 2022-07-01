@@ -33,7 +33,7 @@ export default function RoutinesScreen({ navigation }) {
     }
   };
 
-  const initRoutineItems = async () => {
+  const initMyRoutines = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
       console.log("INIT ROUTINES:", keys);
@@ -81,7 +81,7 @@ export default function RoutinesScreen({ navigation }) {
   };
 
   useEffect(() => {
-    initRoutineItems();
+    initMyRoutines();
   }, []);
 
   const navTemplate = (routine) => {
@@ -99,7 +99,7 @@ export default function RoutinesScreen({ navigation }) {
       <TouchableOpacity onPress={() => clearAsyncStorage()}>
         <Text>Clear Async Storage</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => initRoutineItems()}>
+      <TouchableOpacity onPress={() => initMyRoutines()}>
         <Text style={styles.headerText}>Init Routines</Text>
       </TouchableOpacity>
       {/* END TESTING FUNCTIONS */}

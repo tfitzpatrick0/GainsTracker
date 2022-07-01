@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,9 +6,69 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function HistoryScreen({ navigation, route }) {
-  const { routine, routineHistory } = route.params;
+  const { routine } = route.params;
+  // const template = JSON.parse(await AsyncStorage.getItem(routine)).template;
+  const [myHistory, setMyHistory] = useState([]);
+  const [myTemplate, setMyTemplate] = useState([]);
+  const [display, setDisplay] = useState(false);
+
+  const initMyTemplate = async () => {
+    try {
+      const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
+      if (currRoutine.template.length > 0) {
+        let currTemplate = [];
+
+        currRoutine.template.forEach((exerciseTemplate) => {
+          currTemplate.push(JSON.parse(exerciseTemplate));
+        });
+
+        console.log("INIT TEMPLATE:", currTemplate);
+        setMyTemplate(currTemplate);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const storageAddHistory = async () => {};
+
+  const handleAddHistory = () => {};
+
+  const displayNewWorkout = () => {
+    setDisplay(true);
+  };
+
+  const renderNewWorkout = () => {
+    if (display) {
+      console.log("START NEW WORKOUT");
+      return (
+        <View>
+          <TouchableOpacity onPress={() => setDisplay(false)}>
+            <Text>DONE</Text>
+          </TouchableOpacity>
+          <Text>New Workout</Text>
+          {myTemplate.map((exerciseTemplate, index) => {
+            return (
+              <View key={index}>
+                <Text>EXERCISE #{index}</Text>
+                <Text>{exerciseTemplate.exercise}</Text>
+                <Text>{exerciseTemplate.sets}</Text>
+                <Text>{exerciseTemplate.reps}</Text>
+                <Text>{exerciseTemplate.weight}</Text>
+              </View>
+            );
+          })}
+        </View>
+      );
+    }
+  };
+
+  useEffect(() => {
+    initMyTemplate();
+  }, []);
 
   const navModRoutine = (routine) => {
     console.log("NAVIGATING - ModRoutine: ", routine);
@@ -23,7 +83,10 @@ export default function HistoryScreen({ navigation, route }) {
           <Text>Go to routine - {routine}</Text>
         </TouchableOpacity>
         <Text style={styles.headerText}>History</Text>
-        <Text style={styles.headerText}>Start New Workout</Text>
+        <TouchableOpacity onPress={() => displayNewWorkout()}>
+          <Text style={styles.headerText}>Start New Workout</Text>
+        </TouchableOpacity>
+        {renderNewWorkout()}
       </View>
     </SafeAreaView>
   );
