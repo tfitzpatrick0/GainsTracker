@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import exercisesMap from "../constants/exercisesMap";
 
 // SHARED COMPONENT
-export default function ExercisesDisplay(props) {
+export default function ExerciseNamesDisplay(props) {
   const { bodypart, callOnPress } = props;
   const exercisesList = exercisesMap[bodypart];
   const [display, setDisplay] = useState(false);

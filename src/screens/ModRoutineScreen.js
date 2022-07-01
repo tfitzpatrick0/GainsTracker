@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Exercise from "../components/Exercise";
-import ExercisesDisplay from "../components/ExercisesDisplay";
+import ExerciseNamesDisplay from "../components/ExerciseNamesDisplay";
 import bodypartsList from "../constants/bodypartsList";
 
 // Modify a workout routine
@@ -118,7 +118,7 @@ export default function ModRoutineScreen({ navigation, route }) {
             {/* Exercises get displayed here */}
             {bodypartsList.map((bodypart) => {
               return (
-                <ExercisesDisplay
+                <ExerciseNamesDisplay
                   key={bodypart}
                   bodypart={bodypart}
                   callOnPress={handleAddExercise}
