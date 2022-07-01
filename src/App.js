@@ -2,8 +2,8 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RoutinesScreen from "./screens/RoutinesScreen";
-import ModRoutineScreen from "./screens/ModRoutineScreen";
-import ProgressScreen from "./screens/ProgressScreen";
+import TemplateScreen from "./screens/TemplateScreen";
+import HistoryScreen from "./screens/HistoryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,13 +17,13 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="ModRoutine"
-          component={ModRoutineScreen}
+          name="Template"
+          component={TemplateScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Progress"
-          component={ProgressScreen}
+          name="History"
+          component={HistoryScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

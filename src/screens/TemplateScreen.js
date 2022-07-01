@@ -13,7 +13,7 @@ import ExerciseNamesDisplay from "../components/ExerciseNamesDisplay";
 import bodypartsList from "../constants/bodypartsList";
 
 // Modify a workout routine
-export default function ModRoutineScreen({ navigation, route }) {
+export default function TemplateScreen({ navigation, route }) {
   const { routine } = route.params;
   const [myExercises, setMyExercises] = useState([]);
 
@@ -100,10 +100,12 @@ export default function ModRoutineScreen({ navigation, route }) {
     navigation.navigate("Routines");
   };
 
-  const navProgress = (routine) => {
-    console.log("NAVIGATING - Progress: ", routine);
+  const navHistory = (routine) => {
+    console.log("History screen under development");
+    // console.log("NAVIGATING - History: ", routine);
 
-    navigation.navigate("Progress", { routine });
+    // const routineHistory = routine + "History";
+    // navigation.navigate("History", { routine, routineHistory });
   };
 
   return (
@@ -117,8 +119,8 @@ export default function ModRoutineScreen({ navigation, route }) {
           <TouchableOpacity onPress={() => navRoutines()}>
             <Text style={styles.headerText}>Go Back</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navProgress(routine)}>
-            <Text style={styles.headerText}>Go To Progress</Text>
+          <TouchableOpacity onPress={() => navHistory(routine)}>
+            <Text style={styles.headerText}>Go To History</Text>
           </TouchableOpacity>
           <Text style={styles.headerText}>{routine}</Text>
           <View style={styles.exercises}>{renderExercises()}</View>

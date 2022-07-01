@@ -20,6 +20,19 @@ export default function RoutinesScreen({ navigation }) {
     AsyncStorage.clear();
   };
 
+  const showAsyncStorage = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      console.log("SHOW ASYNC:", keys);
+      const result = await AsyncStorage.multiGet(keys);
+      console.log("SHOW ASYNC RESULT:", result);
+
+      // return result.map((req) => JSON.parse(req)).forEach(console.log);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const initRoutineItems = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
@@ -32,7 +45,10 @@ export default function RoutinesScreen({ navigation }) {
 
   const storageAddRoutine = async (routine) => {
     try {
-      await AsyncStorage.setItem(routine, JSON.stringify([]));
+      await AsyncStorage.setItem(
+        routine,
+        JSON.stringify({ template: [], history: [] })
+      );
       console.log("Added routine to storage:", routine);
     } catch (e) {
       console.log(e);
@@ -68,15 +84,18 @@ export default function RoutinesScreen({ navigation }) {
     initRoutineItems();
   }, []);
 
-  const navModRoutine = (routine) => {
-    console.log("NAVIGATING - ModRoutine: ", routine);
+  const navTemplate = (routine) => {
+    console.log("NAVIGATING - Template: ", routine);
 
-    navigation.navigate("ModRoutine", { routine });
+    navigation.navigate("Template", { routine });
   };
 
   return (
     <SafeAreaView style={styles.container}>
       {/* TESTING FUNCTIONS */}
+      <TouchableOpacity onPress={() => showAsyncStorage()}>
+        <Text>Show Async Storage</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => clearAsyncStorage()}>
         <Text>Clear Async Storage</Text>
       </TouchableOpacity>
@@ -92,7 +111,7 @@ export default function RoutinesScreen({ navigation }) {
           {myRoutines.map((routine, index) => {
             return (
               <View key={index}>
-                <TouchableOpacity onPress={() => navModRoutine(routine)}>
+                <TouchableOpacity onPress={() => navTemplate(routine)}>
                   <Routine text={routine} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleRemoveRoutine(index)}>
