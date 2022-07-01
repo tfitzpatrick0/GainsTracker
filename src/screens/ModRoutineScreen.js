@@ -100,6 +100,12 @@ export default function ModRoutineScreen({ navigation, route }) {
     navigation.navigate("Routines");
   };
 
+  const navProgress = (routine) => {
+    console.log("NAVIGATING - Progress: ", routine);
+
+    navigation.navigate("Progress", { routine });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -110,6 +116,9 @@ export default function ModRoutineScreen({ navigation, route }) {
         <View style={styles.exercisesWrapper}>
           <TouchableOpacity onPress={() => navRoutines()}>
             <Text style={styles.headerText}>Go Back</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navProgress(routine)}>
+            <Text style={styles.headerText}>Go To Progress</Text>
           </TouchableOpacity>
           <Text style={styles.headerText}>{routine}</Text>
           <View style={styles.exercises}>{renderExercises()}</View>

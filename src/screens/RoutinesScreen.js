@@ -71,9 +71,7 @@ export default function RoutinesScreen({ navigation }) {
   const navModRoutine = (routine) => {
     console.log("NAVIGATING - ModRoutine: ", routine);
 
-    navigation.navigate("ModRoutine", {
-      routine,
-    });
+    navigation.navigate("ModRoutine", { routine });
   };
 
   return (
