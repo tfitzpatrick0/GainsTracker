@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import TestExercise from "../components/TestExercise";
 
 export default function HistoryScreen({ navigation, route }) {
   const { routine } = route.params;
@@ -37,6 +38,8 @@ export default function HistoryScreen({ navigation, route }) {
 
   const handleAddHistory = () => {};
 
+  const handleChangeTemplate = () => {};
+
   const displayNewWorkout = () => {
     setDisplay(true);
   };
@@ -52,13 +55,12 @@ export default function HistoryScreen({ navigation, route }) {
           <Text>New Workout</Text>
           {myTemplate.map((exerciseTemplate, index) => {
             return (
-              <View key={index}>
-                <Text>EXERCISE #{index}</Text>
-                <Text>{exerciseTemplate.exercise}</Text>
-                <Text>{exerciseTemplate.sets}</Text>
-                <Text>{exerciseTemplate.reps}</Text>
-                <Text>{exerciseTemplate.weight}</Text>
-              </View>
+              <TestExercise
+                key={index}
+                routine={routine}
+                index={index}
+                exercise={exerciseTemplate.exercise}
+              />
             );
           })}
         </View>
@@ -71,9 +73,9 @@ export default function HistoryScreen({ navigation, route }) {
   }, []);
 
   const navModRoutine = (routine) => {
-    console.log("NAVIGATING - ModRoutine: ", routine);
+    console.log("NAVIGATING - Template: ", routine);
 
-    navigation.navigate("ModRoutine", { routine });
+    navigation.navigate("Template", { routine });
   };
 
   return (
