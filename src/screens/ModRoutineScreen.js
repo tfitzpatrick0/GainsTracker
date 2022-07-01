@@ -49,10 +49,10 @@ export default function ModRoutineScreen({ navigation, route }) {
     }
   };
 
-  const storageRemoveExercise = async (routine, templateIndex) => {
+  const storageRemoveExercise = async (routine, index) => {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      currRoutine.splice(templateIndex, 1);
+      currRoutine.splice(index, 1);
       await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
 
       // Testing
@@ -67,9 +67,9 @@ export default function ModRoutineScreen({ navigation, route }) {
   };
 
   const handleAddExercise = (exercise) => {
+    storageAddExercise(routine, JSON.stringify(exerciseTemplate));
     setMyExercises([...myExercises, exercise]);
     const exerciseTemplate = { exercise: exercise, sets: null, reps: null };
-    storageAddExercise(routine, JSON.stringify(exerciseTemplate));
   };
 
   const handleRemoveExercise = (index) => {

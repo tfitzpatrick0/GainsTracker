@@ -91,7 +91,7 @@ export default function Exercise(props) {
 
   useEffect(() => {
     initSetsAndReps();
-  }, [exercise]);
+  }, []);
 
   return (
     <View>

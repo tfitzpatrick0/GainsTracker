@@ -14,7 +14,7 @@ import Routine from "../components/Routine";
 
 export default function RoutinesScreen({ navigation }) {
   const [routine, setRoutine] = useState();
-  const [routineItems, setRoutineItems] = useState([]);
+  const [myRoutines, setMyRoutines] = useState([]);
 
   const clearAsyncStorage = async () => {
     AsyncStorage.clear();
@@ -24,7 +24,7 @@ export default function RoutinesScreen({ navigation }) {
     try {
       const keys = await AsyncStorage.getAllKeys();
       console.log("INIT ROUTINES:", keys);
-      setRoutineItems(keys);
+      setMyRoutines(keys);
     } catch (e) {
       console.log(e);
     }
@@ -51,17 +51,17 @@ export default function RoutinesScreen({ navigation }) {
   const handleAddRoutine = () => {
     Keyboard.dismiss();
     // Only include unique routine names - use as key for AsyncStorage
-    if (routine && !routineItems.includes(routine)) {
+    if (routine && !myRoutines.includes(routine)) {
       storageAddRoutine(routine);
-      setRoutineItems([...routineItems, routine]);
+      setMyRoutines([...myRoutines, routine]);
     }
     setRoutine(null);
   };
 
   const handleRemoveRoutine = (index) => {
-    storageRemoveRoutine(routineItems[index]);
-    routineItems.splice(index, 1);
-    setRoutineItems([...routineItems]);
+    storageRemoveRoutine(myRoutines[index]);
+    myRoutines.splice(index, 1);
+    setMyRoutines([...myRoutines]);
   };
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export default function RoutinesScreen({ navigation }) {
         <Text style={styles.headerText}>Routines</Text>
         <View style={styles.routines}>
           {/* Routines get mapped here */}
-          {routineItems.map((routine, index) => {
+          {myRoutines.map((routine, index) => {
             return (
               <View key={index}>
                 <TouchableOpacity onPress={() => navModRoutine(routine)}>
