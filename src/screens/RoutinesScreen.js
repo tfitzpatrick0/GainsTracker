@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Routine from "../components/Routine";
 import AddNewRoutine from "../components/AddNewRoutine";
@@ -13,8 +7,19 @@ import AddNewRoutine from "../components/AddNewRoutine";
 export default function RoutinesScreen({ navigation }) {
   const [myRoutines, setMyRoutines] = useState([]);
 
+  const initMyRoutines = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      console.log("INIT ROUTINES:", keys);
+      setMyRoutines(keys);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const clearAsyncStorage = async () => {
     AsyncStorage.clear();
+    initMyRoutines();
   };
 
   const showAsyncStorage = async () => {
@@ -27,16 +32,6 @@ export default function RoutinesScreen({ navigation }) {
       // return result.map((req) => JSON.parse(req)).forEach(console.log);
     } catch (error) {
       console.error(error);
-    }
-  };
-
-  const initMyRoutines = async () => {
-    try {
-      const keys = await AsyncStorage.getAllKeys();
-      console.log("INIT ROUTINES:", keys);
-      setMyRoutines(keys);
-    } catch (e) {
-      console.log(e);
     }
   };
 
@@ -57,7 +52,12 @@ export default function RoutinesScreen({ navigation }) {
 
   const renderMyRoutines = () => {
     return (
-      <View style={styles.routines}>
+      <ScrollView
+      // style={{
+      //   borderWidth: 1,
+      //   borderColor: "black",
+      // }}
+      >
         {/* Routines get mapped here */}
         {myRoutines.map((routine, index) => {
           return (
@@ -70,7 +70,7 @@ export default function RoutinesScreen({ navigation }) {
             />
           );
         })}
-      </View>
+      </ScrollView>
     );
   };
 
@@ -85,26 +85,37 @@ export default function RoutinesScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* TESTING FUNCTIONS */}
-      <TouchableOpacity onPress={() => showAsyncStorage()}>
-        <Text>Show Async Storage</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => clearAsyncStorage()}>
-        <Text>Clear Async Storage</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => initMyRoutines()}>
-        <Text style={styles.headerText}>Init Routines</Text>
-      </TouchableOpacity>
-      {/* END TESTING FUNCTIONS */}
+    <>
+      <SafeAreaView
+        edges={["top"]}
+        style={{ flex: 0, backgroundColor: "#FC4E23" }}
+      />
+      <View style={styles.container}>
+        {/* TESTING FUNCTIONS */}
 
-      <View style={styles.routinesWrapper}>
-        <Text style={styles.headerText}>Routines</Text>
-        {renderMyRoutines()}
+        {/* <TouchableOpacity onPress={() => showAsyncStorage()}>
+          <Text>Show Async Storage</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => clearAsyncStorage()}>
+          <Text>Clear Async Storage</Text>
+        </TouchableOpacity>*/}
+
+        {/* END TESTING FUNCTIONS */}
+
+        <View style={styles.headerWrapper}>
+          <Text style={styles.headerText}>Routines</Text>
+        </View>
+
+        <View style={styles.myRoutinesWrapper}>{renderMyRoutines()}</View>
+
+        <View style={styles.addNewRoutineWrapper}>
+          <AddNewRoutine
+            myRoutines={myRoutines}
+            setMyRoutines={setMyRoutines}
+          />
+        </View>
       </View>
-
-      <AddNewRoutine myRoutines={myRoutines} setMyRoutines={setMyRoutines} />
-    </SafeAreaView>
+    </>
   );
 }
 
@@ -113,16 +124,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ddd",
   },
-  routinesWrapper: {
-    paddingTop: 50,
-    paddingHorizontal: 20,
+  headerWrapper: {
+    padding: 20,
+    backgroundColor: "#FC4E23",
   },
   headerText: {
-    alignSelf: "center",
     fontSize: 30,
     fontWeight: "bold",
   },
-  routines: {
-    marginTop: 20,
+  myRoutinesWrapper: {
+    flex: 1,
+    margin: 20,
+  },
+  addNewRoutineWrapper: {
+    paddingBottom: 40,
+    backgroundColor: "#3F00E1",
   },
 });

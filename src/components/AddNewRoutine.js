@@ -39,7 +39,7 @@ export default function AddNewRoutine(props) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.newRoutineWrapper}
+      style={styles.inputFieldWrapper}
     >
       <TextInput
         style={styles.textInput}
@@ -57,10 +57,8 @@ export default function AddNewRoutine(props) {
 }
 
 const styles = StyleSheet.create({
-  newRoutineWrapper: {
-    position: "absolute",
-    bottom: 60,
-    width: "100%",
+  inputFieldWrapper: {
+    padding: 20,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
