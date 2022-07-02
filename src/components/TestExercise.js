@@ -11,61 +11,69 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function TestExercise(props) {
-  const { routine, index, exercise } = props;
+  const {
+    routine,
+    index,
+    exercise,
+    isets,
+    ireps,
+    iweight,
+    handleUpdateWorkout,
+  } = props;
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
   const [weight, setWeight] = useState();
   const [mySetsRepsAndWeight, setMySetsRepsAndWeight] = useState({
-    mySets: null,
-    myReps: null,
-    myWeight: null,
+    mySets: isets,
+    myReps: ireps,
+    myWeight: iweight,
   });
 
-  const initSetsRepsAndWeight = async () => {
-    try {
-      const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
+  // const initSetsRepsAndWeight = async () => {
+  //   try {
+  //     const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
 
-      // Parsing currRoutine[index] may give undefined error because AsyncStorage at [index] not initialized
-      // Therefore, need to check if index is in range of currRoutine
-      if (currRoutine.template.length > index) {
-        let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
-        console.log("INIT EXERCISE FOR WORKOUT: ", currExerciseTemplate);
+  //     // Parsing currRoutine[index] may give undefined error because AsyncStorage at [index] not initialized
+  //     // Therefore, need to check if index is in range of currRoutine
+  //     if (currRoutine.template.length > index) {
+  //       let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
+  //       console.log("INIT EXERCISE FOR WORKOUT: ", currExerciseTemplate);
 
-        setMySetsRepsAndWeight((mySetsRepsAndWeight) => ({
-          ...mySetsRepsAndWeight,
-          mySets: currExerciseTemplate.sets,
-          myReps: currExerciseTemplate.reps,
-          myWeight: currExerciseTemplate.weight,
-        }));
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  //       setMySetsRepsAndWeight((mySetsRepsAndWeight) => ({
+  //         ...mySetsRepsAndWeight,
+  //         mySets: currExerciseTemplate.sets,
+  //         myReps: currExerciseTemplate.reps,
+  //         myWeight: currExerciseTemplate.weight,
+  //       }));
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-  const storageSetsRepsAndWeight = async (sets, reps, weight) => {
-    try {
-      const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
-      console.log("currExerciseTemplate: ", currExerciseTemplate);
+  // const storageSetsRepsAndWeight = async (sets, reps, weight) => {
+  //   try {
+  //     const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
+  //     let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
+  //     console.log("currExerciseTemplate: ", currExerciseTemplate);
 
-      currExerciseTemplate.sets = sets;
-      currExerciseTemplate.reps = reps;
-      currExerciseTemplate.weight = weight;
+  //     currExerciseTemplate.sets = sets;
+  //     currExerciseTemplate.reps = reps;
+  //     currExerciseTemplate.weight = weight;
 
-      console.log("Updated currExerciseTemplate: ", currExerciseTemplate);
+  //     console.log("Updated currExerciseTemplate: ", currExerciseTemplate);
 
-      currRoutine.template[index] = JSON.stringify(currExerciseTemplate);
-      await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  //     currRoutine.template[index] = JSON.stringify(currExerciseTemplate);
+  //     await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   const handleSetsRepsAndWeight = () => {
     Keyboard.dismiss();
     if (sets && reps && weight) {
-      storageSetsRepsAndWeight(sets, reps, weight);
+      // storageSetsRepsAndWeight(sets, reps, weight);
       setMySetsRepsAndWeight((mySetsRepsAndWeight) => ({
         ...mySetsRepsAndWeight,
         mySets: sets,
@@ -90,13 +98,15 @@ export default function TestExercise(props) {
     }
   };
 
-  useEffect(() => {
-    initSetsRepsAndWeight();
-  }, []);
+  // useEffect(() => {
+  //   initSetsRepsAndWeight();
+  // }, []);
 
   return (
     <View>
-      <TouchableOpacity onPress={() => handleRemoveExercise(index)}>
+      <TouchableOpacity
+        onPress={() => handleUpdateWorkout(index, mySetsRepsAndWeight)}
+      >
         <Text>{exercise}</Text>
         {renderSetsRepsAndWeight()}
       </TouchableOpacity>
