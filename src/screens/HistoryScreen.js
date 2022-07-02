@@ -52,7 +52,7 @@ export default function HistoryScreen({ navigation, route }) {
           currTemplate.push(JSON.parse(exerciseTemplate));
         });
 
-        console.log("INIT TEMPLATE:", currTemplate);
+        console.log("INIT WORKOUT:", currTemplate);
         setMyWorkout(currTemplate);
       }
     } catch (e) {
@@ -82,6 +82,8 @@ export default function HistoryScreen({ navigation, route }) {
   const handleAddHistory = () => {
     console.log("Adding myWorkout to HISTORY:", myWorkout);
     setMyHistory([...myHistory, myWorkout]);
+
+    // CAN I MOVE THIS TO THE TOP OF THE FUNCTION?!
     storageAddHistory(myWorkout);
     // let currHistory = [...myHistory];
     // currHistory.push(myWorkout);
@@ -136,7 +138,9 @@ export default function HistoryScreen({ navigation, route }) {
   }, [routine]);
 
   useEffect(() => {
-    initMyWorkout();
+    if (!display) {
+      initMyWorkout();
+    }
   }, [display]);
 
   const navModRoutine = (routine) => {
