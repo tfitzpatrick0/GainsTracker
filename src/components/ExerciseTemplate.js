@@ -15,12 +15,14 @@ export default function ExerciseTemplate(props) {
   const { routine, index, exercise, handleRemoveExercise } = props;
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
-  const [mySetsAndReps, setMySetsAndReps] = useState({
+  const [weight, setWeight] = useState();
+  const [templateInfo, setTemplateInfo] = useState({
     mySets: null,
     myReps: null,
+    myWeight: null,
   });
 
-  const initSetsAndReps = async () => {
+  const initTemplateInfo = async () => {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
 
@@ -32,8 +34,8 @@ export default function ExerciseTemplate(props) {
       console.log("INIT SETS AND REPS: ", currExerciseTemplate);
 
       if (currExerciseTemplate.sets && currExerciseTemplate.reps) {
-        setMySetsAndReps((mySetsAndReps) => ({
-          ...mySetsAndReps,
+        setTemplateInfo((templateInfo) => ({
+          ...templateInfo,
           mySets: currExerciseTemplate.sets,
           myReps: currExerciseTemplate.reps,
         }));
@@ -43,14 +45,15 @@ export default function ExerciseTemplate(props) {
     }
   };
 
-  const storageSetsAndReps = async (sets, reps) => {
+  const storageTemplateInfo = async (sets, reps, weight) => {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
       let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
       console.log("currExerciseTemplate: ", currExerciseTemplate);
 
-      currExerciseTemplate.sets = sets;
-      currExerciseTemplate.reps = reps;
+      if (sets) currExerciseTemplate.sets = sets;
+      if (reps) currExerciseTemplate.reps = reps;
+      if (weight) currExerciseTemplate.weight = weight;
 
       console.log("Updated currExerciseTemplate: ", currExerciseTemplate);
 
@@ -61,26 +64,29 @@ export default function ExerciseTemplate(props) {
     }
   };
 
-  const handleSetsAndReps = () => {
+  const handleTemplateInfo = () => {
     Keyboard.dismiss();
-    if (sets && reps) {
-      storageSetsAndReps(sets, reps);
-      setMySetsAndReps((mySetsAndReps) => ({
-        ...mySetsAndReps,
-        mySets: sets,
-        myReps: reps,
-      }));
-    }
+    storageTemplateInfo(sets, reps, weight);
+
+    setTemplateInfo((templateInfo) => ({
+      ...templateInfo,
+      mySets: sets ? sets : templateInfo.mySets,
+      myReps: reps ? reps : templateInfo.myReps,
+      myWeight: weight ? weight : templateInfo.myWeight,
+    }));
+
     setSets(null);
     setReps(null);
+    setWeight(null);
   };
 
-  const renderSetsAndReps = () => {
-    if (mySetsAndReps.mySets && mySetsAndReps.myReps) {
+  const renderTemplateInfo = () => {
+    if (templateInfo.mySets && templateInfo.myReps) {
       return (
         <View>
           <Text>
-            Sets: {mySetsAndReps.mySets} | Reps: {mySetsAndReps.myReps}
+            Sets: {templateInfo.mySets} | Reps: {templateInfo.myReps} | Weight
+            {" ("}lbs{")"}: {templateInfo.myWeight}
           </Text>
         </View>
       );
@@ -88,7 +94,7 @@ export default function ExerciseTemplate(props) {
   };
 
   useEffect(() => {
-    initSetsAndReps();
+    initTemplateInfo();
   }, []);
 
   return (
@@ -98,7 +104,7 @@ export default function ExerciseTemplate(props) {
         onPress={() => handleRemoveExercise(index)}
       >
         <Text style={{ fontWeight: "bold" }}>{exercise}</Text>
-        {renderSetsAndReps()}
+        {renderTemplateInfo()}
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
@@ -112,7 +118,12 @@ export default function ExerciseTemplate(props) {
             value={reps}
             onChangeText={(text) => setReps(text)}
           />
-          <TouchableOpacity onPress={() => handleSetsAndReps()}>
+          <TextInput
+            placeholder={"Weight"}
+            value={weight}
+            onChangeText={(text) => setWeight(text)}
+          />
+          <TouchableOpacity onPress={() => handleTemplateInfo()}>
             <View>
               <Text>+</Text>
             </View>
