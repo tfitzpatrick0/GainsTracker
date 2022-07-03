@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RoutinesScreen from "./screens/RoutinesScreen";
 import TemplateScreen from "./screens/TemplateScreen";
 import HistoryScreen from "./screens/HistoryScreen";
+import colors from "./constants/colors";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,12 +20,22 @@ export default function App() {
         <Stack.Screen
           name="Template"
           component={TemplateScreen}
-          options={{ headerShown: false }}
+          options={{
+            title: "Edit Routine",
+            headerStyle: { backgroundColor: colors.red },
+            headerTintColor: colors.lightGray,
+            headerTitleStyle: {
+              fontSize: 18,
+              fontWeight: "bold",
+              color: colors.black,
+            },
+          }}
+          // options={{ headerShown: false }}
         />
         <Stack.Screen
           name="History"
           component={HistoryScreen}
-          options={{ headerShown: false }}
+          // options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

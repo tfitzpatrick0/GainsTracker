@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Exercise(props) {
+export default function ExerciseTemplate(props) {
   const { routine, index, exercise, handleRemoveExercise } = props;
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();

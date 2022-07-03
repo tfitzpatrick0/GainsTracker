@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Routine from "../components/Routine";
 import AddNewRoutine from "../components/AddNewRoutine";
+import colors from "../constants/colors";
 
 export default function RoutinesScreen({ navigation }) {
   const [myRoutines, setMyRoutines] = useState([]);
@@ -52,12 +60,7 @@ export default function RoutinesScreen({ navigation }) {
 
   const renderMyRoutines = () => {
     return (
-      <ScrollView
-      // style={{
-      //   borderWidth: 1,
-      //   borderColor: "black",
-      // }}
-      >
+      <ScrollView>
         {/* Routines get mapped here */}
         {myRoutines.map((routine, index) => {
           return (
@@ -86,7 +89,7 @@ export default function RoutinesScreen({ navigation }) {
 
   return (
     <>
-      <SafeAreaView style={{ backgroundColor: "#FC4E23" }} />
+      <SafeAreaView style={{ backgroundColor: colors.red }} />
       <View style={styles.container}>
         {/* TESTING FUNCTIONS */}
 
@@ -95,7 +98,7 @@ export default function RoutinesScreen({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => clearAsyncStorage()}>
           <Text>Clear Async Storage</Text>
-        </TouchableOpacity>*/}
+        </TouchableOpacity> */}
 
         {/* END TESTING FUNCTIONS */}
 
@@ -112,7 +115,7 @@ export default function RoutinesScreen({ navigation }) {
           />
         </View>
       </View>
-      <SafeAreaView style={{ backgroundColor: "#3F00E1" }} />
+      <SafeAreaView style={{ backgroundColor: colors.blue }} />
     </>
   );
 }
@@ -120,15 +123,16 @@ export default function RoutinesScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#DDD",
+    backgroundColor: colors.lightGray,
   },
   headerWrapper: {
     padding: 20,
-    backgroundColor: "#FC4E23",
+    backgroundColor: colors.red,
   },
   headerText: {
     fontSize: 36,
     fontWeight: "bold",
+    color: colors.black,
   },
   myRoutinesWrapper: {
     padding: 20,
@@ -136,6 +140,6 @@ const styles = StyleSheet.create({
   },
   addNewRoutineWrapper: {
     padding: 20,
-    backgroundColor: "#3F00E1",
+    backgroundColor: colors.blue,
   },
 });

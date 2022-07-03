@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import colors from "../constants/colors";
 
 export default function Routine(props) {
   const { routine, index, handleRemoveRoutine, navTemplate } = props;
@@ -25,11 +26,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     borderRadius: 15,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
   },
   text: {
     padding: 10,
     fontSize: 15,
     fontWeight: "bold",
+    color: colors.black,
   },
 });

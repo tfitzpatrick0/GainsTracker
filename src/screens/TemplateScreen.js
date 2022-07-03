@@ -8,11 +8,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Exercise from "../components/Exercise";
+import ExerciseTemplate from "../components/ExerciseTemplate";
 import ExerciseNamesDisplay from "../components/ExerciseNamesDisplay";
 import bodypartsList from "../constants/bodypartsList";
+import colors from "../constants/colors";
 
-// Modify a workout routine
+// Create/modify a template for a workout routine
 export default function TemplateScreen({ navigation, route }) {
   const { routine } = route.params;
   const [myExercises, setMyExercises] = useState([]);
@@ -84,7 +85,7 @@ export default function TemplateScreen({ navigation, route }) {
   const renderExercises = () => {
     return myExercises.map((exercise, index) => {
       return (
-        <Exercise
+        <ExerciseTemplate
           key={index}
           routine={routine}
           index={index}
@@ -118,14 +119,17 @@ export default function TemplateScreen({ navigation, route }) {
           flexGrow: 1,
         }}
       >
-        <View style={styles.exercisesWrapper}>
-          <TouchableOpacity onPress={() => navRoutines()}>
-            <Text style={styles.headerText}>{"<"}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navHistory(routine)}>
-            <Text style={styles.headerText}>Go To History</Text>
-          </TouchableOpacity>
+        <View style={styles.headerWrapper}>
           <Text style={styles.headerText}>{routine}</Text>
+          <TouchableOpacity onPress={() => navHistory(routine)}>
+            <Text>Go To History</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.exercisesWrapper}>
+          {/* <TouchableOpacity onPress={() => navRoutines()}>
+            <Text style={styles.headerText}>{"<"}</Text>
+          </TouchableOpacity> */}
+
           <View style={styles.exercises}>{renderExercises()}</View>
           <Text style={styles.headerText}>Add Exercises</Text>
           <View style={styles.exercises}>
@@ -151,13 +155,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ddd",
   },
-  exercisesWrapper: {
-    paddingTop: 50,
-    paddingHorizontal: 20,
+  headerWrapper: {
+    margin: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomWidth: 5,
+    borderBottomColor: colors.red,
   },
   headerText: {
-    alignSelf: "center",
-    fontSize: 30,
+    fontSize: 36,
     fontWeight: "bold",
+    color: colors.black,
+  },
+  exercisesWrapper: {
+    padding: 20,
   },
 });

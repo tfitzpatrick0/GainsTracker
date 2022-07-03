@@ -9,6 +9,7 @@ import {
   Keyboard,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import colors from "../constants/colors";
 
 export default function AddNewRoutine(props) {
   const { myRoutines, setMyRoutines } = props;
@@ -44,7 +45,7 @@ export default function AddNewRoutine(props) {
       <TextInput
         style={styles.textInput}
         placeholder={"Add a routine..."}
-        placeholderTextColor={"#999"}
+        placeholderTextColor={colors.gray}
         value={routine}
         onChangeText={(text) => setRoutine(text)}
       />
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     width: 250,
     paddingVertical: 15,
     paddingHorizontal: 15,
-    backgroundColor: "#FFF",
+    backgroundColor: colors.white,
     borderRadius: 15,
     // borderColor: "#C0C0C0",
     // borderWidth: 3,
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   addButton: {
     width: 60,
     paddingVertical: 15,
-    backgroundColor: "#FFF",
+    backgroundColor: colors.white,
     borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
