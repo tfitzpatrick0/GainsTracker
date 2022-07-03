@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     flexDirection: "row",
     justifyContent: "space-between",
-    borderRadius: 15,
+    borderRadius: 10,
     backgroundColor: colors.white,
   },
   text: {

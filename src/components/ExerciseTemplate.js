@@ -9,6 +9,7 @@ import {
   Keyboard,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import colors from "../constants/colors";
 
 export default function ExerciseTemplate(props) {
   const { routine, index, exercise, handleRemoveExercise } = props;
@@ -23,19 +24,19 @@ export default function ExerciseTemplate(props) {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
 
-      // Parsing currRoutine[index] may give undefined error because AsyncStorage at [index] not initialized
-      // Therefore, need to check if index is in range of currRoutine
-      if (currRoutine.template.length > index) {
-        let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
-        console.log("INIT SETS AND REPS: ", currExerciseTemplate);
+      // Parsing currRoutine.template[index] may give undefined error because AsyncStorage at [index] not initialized
+      // Therefore, need to check if index is in range of currRoutine.template
+      // Might not be an issue after fix for removing exercises -> wait until Async is updated to re-render?
 
-        if (currExerciseTemplate.sets && currExerciseTemplate.reps) {
-          setMySetsAndReps((mySetsAndReps) => ({
-            ...mySetsAndReps,
-            mySets: currExerciseTemplate.sets,
-            myReps: currExerciseTemplate.reps,
-          }));
-        }
+      let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
+      console.log("INIT SETS AND REPS: ", currExerciseTemplate);
+
+      if (currExerciseTemplate.sets && currExerciseTemplate.reps) {
+        setMySetsAndReps((mySetsAndReps) => ({
+          ...mySetsAndReps,
+          mySets: currExerciseTemplate.sets,
+          myReps: currExerciseTemplate.reps,
+        }));
       }
     } catch (e) {
       console.log(e);
@@ -77,12 +78,9 @@ export default function ExerciseTemplate(props) {
   const renderSetsAndReps = () => {
     if (mySetsAndReps.mySets && mySetsAndReps.myReps) {
       return (
-        <View style={styles.setsAndReps}>
-          <Text style={styles.setsAndRepsText}>
-            Sets: {mySetsAndReps.mySets}
-          </Text>
-          <Text style={styles.setsAndRepsText}>
-            Reps: {mySetsAndReps.myReps}
+        <View>
+          <Text>
+            Sets: {mySetsAndReps.mySets} | Reps: {mySetsAndReps.myReps}
           </Text>
         </View>
       );
@@ -95,32 +93,41 @@ export default function ExerciseTemplate(props) {
 
   return (
     <View>
-      <TouchableOpacity onPress={() => handleRemoveExercise(index)}>
-        <Text>{exercise}</Text>
-        {renderSetsAndReps()}
-      </TouchableOpacity>
-
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      <TouchableOpacity
+        style={styles.exerciseTemplateWrapper}
+        onPress={() => handleRemoveExercise(index)}
       >
-        <TextInput
-          placeholder={"Sets"}
-          value={sets}
-          onChangeText={(text) => setSets(text)}
-        />
-        <TextInput
-          placeholder={"Reps"}
-          value={reps}
-          onChangeText={(text) => setReps(text)}
-        />
-        <TouchableOpacity onPress={() => handleSetsAndReps()}>
-          <View>
-            <Text>+</Text>
-          </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
+        <Text style={{ fontWeight: "bold" }}>{exercise}</Text>
+        {renderSetsAndReps()}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <TextInput
+            placeholder={"Sets"}
+            value={sets}
+            onChangeText={(text) => setSets(text)}
+          />
+          <TextInput
+            placeholder={"Reps"}
+            value={reps}
+            onChangeText={(text) => setReps(text)}
+          />
+          <TouchableOpacity onPress={() => handleSetsAndReps()}>
+            <View>
+              <Text>+</Text>
+            </View>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </TouchableOpacity>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  exerciseTemplateWrapper: {
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: colors.white,
+  },
+});

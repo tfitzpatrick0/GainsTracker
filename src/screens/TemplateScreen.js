@@ -168,6 +168,6 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   exercisesWrapper: {
-    padding: 20,
+    paddingHorizontal: 20,
   },
 });
