@@ -86,10 +86,7 @@ export default function RoutinesScreen({ navigation }) {
 
   return (
     <>
-      <SafeAreaView
-        edges={["top"]}
-        style={{ flex: 0, backgroundColor: "#FC4E23" }}
-      />
+      <SafeAreaView style={{ backgroundColor: "#FC4E23" }} />
       <View style={styles.container}>
         {/* TESTING FUNCTIONS */}
 
@@ -103,7 +100,7 @@ export default function RoutinesScreen({ navigation }) {
         {/* END TESTING FUNCTIONS */}
 
         <View style={styles.headerWrapper}>
-          <Text style={styles.headerText}>Routines</Text>
+          <Text style={styles.headerText}>My Routines</Text>
         </View>
 
         <View style={styles.myRoutinesWrapper}>{renderMyRoutines()}</View>
@@ -115,6 +112,7 @@ export default function RoutinesScreen({ navigation }) {
           />
         </View>
       </View>
+      <SafeAreaView style={{ backgroundColor: "#3F00E1" }} />
     </>
   );
 }
@@ -122,22 +120,22 @@ export default function RoutinesScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ddd",
+    backgroundColor: "#DDD",
   },
   headerWrapper: {
     padding: 20,
     backgroundColor: "#FC4E23",
   },
   headerText: {
-    fontSize: 30,
+    fontSize: 36,
     fontWeight: "bold",
   },
   myRoutinesWrapper: {
+    padding: 20,
     flex: 1,
-    margin: 20,
   },
   addNewRoutineWrapper: {
-    paddingBottom: 40,
+    padding: 20,
     backgroundColor: "#3F00E1",
   },
 });

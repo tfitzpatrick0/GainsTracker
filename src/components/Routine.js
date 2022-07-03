@@ -11,9 +11,9 @@ export default function Routine(props) {
         onPress={() => navTemplate(routine)}
       >
         <Text style={styles.text}>{routine}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleRemoveRoutine(index)}>
-        <Text>-</Text>
+        <TouchableOpacity onPress={() => handleRemoveRoutine(index)}>
+          <Text style={styles.text}>-</Text>
+        </TouchableOpacity>
       </TouchableOpacity>
     </View>
   );
@@ -22,11 +22,14 @@ export default function Routine(props) {
 const styles = StyleSheet.create({
   item: {
     marginVertical: 5,
-    borderRadius: 5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderRadius: 15,
     backgroundColor: "#fff",
   },
   text: {
     padding: 10,
     fontSize: 15,
+    fontWeight: "bold",
   },
 });

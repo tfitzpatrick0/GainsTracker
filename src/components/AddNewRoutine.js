@@ -43,13 +43,14 @@ export default function AddNewRoutine(props) {
     >
       <TextInput
         style={styles.textInput}
-        placeholder={"Add a routine"}
+        placeholder={"Add a routine..."}
+        placeholderTextColor={"#999"}
         value={routine}
         onChangeText={(text) => setRoutine(text)}
       />
       <TouchableOpacity onPress={() => handleAddRoutine()}>
-        <View style={styles.addWrapper}>
-          <Text>Add</Text>
+        <View style={styles.addButton}>
+          <Text style={{ fontWeight: "bold" }}>ADD</Text>
         </View>
       </TouchableOpacity>
     </KeyboardAvoidingView>
@@ -58,28 +59,27 @@ export default function AddNewRoutine(props) {
 
 const styles = StyleSheet.create({
   inputFieldWrapper: {
-    padding: 20,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
   },
   textInput: {
+    width: 250,
     paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: "#FFF",
-    borderRadius: 60,
-    borderColor: "#C0C0C0",
-    borderWidth: 1,
-    width: 250,
+    borderRadius: 15,
+    // borderColor: "#C0C0C0",
+    // borderWidth: 3,
   },
-  addWrapper: {
+  addButton: {
     width: 60,
-    height: 60,
+    paddingVertical: 15,
     backgroundColor: "#FFF",
-    borderRadius: 60,
+    borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "#C0C0C0",
-    borderWidth: 1,
+    // borderColor: "#C0C0C0",
+    // borderWidth: 3,
   },
 });
