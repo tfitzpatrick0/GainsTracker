@@ -33,13 +33,12 @@ export default function ExerciseTemplate(props) {
       let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
       console.log("INIT SETS AND REPS: ", currExerciseTemplate);
 
-      if (currExerciseTemplate.sets && currExerciseTemplate.reps) {
-        setTemplateInfo((templateInfo) => ({
-          ...templateInfo,
-          mySets: currExerciseTemplate.sets,
-          myReps: currExerciseTemplate.reps,
-        }));
-      }
+      setTemplateInfo((templateInfo) => ({
+        ...templateInfo,
+        mySets: currExerciseTemplate.sets,
+        myReps: currExerciseTemplate.reps,
+        myWeight: currExerciseTemplate.weight,
+      }));
     } catch (e) {
       console.log(e);
     }
@@ -81,16 +80,15 @@ export default function ExerciseTemplate(props) {
   };
 
   const renderTemplateInfo = () => {
-    if (templateInfo.mySets && templateInfo.myReps) {
-      return (
-        <View>
-          <Text>
-            Sets: {templateInfo.mySets} | Reps: {templateInfo.myReps} | Weight
-            {" ("}lbs{")"}: {templateInfo.myWeight}
-          </Text>
-        </View>
-      );
-    }
+    return (
+      <View>
+        <Text>
+          Sets: {templateInfo.mySets ? templateInfo.mySets : "--"} | Reps:{" "}
+          {templateInfo.myReps ? templateInfo.myReps : "--"} | Weight
+          {" ("}lbs{")"}: {templateInfo.myWeight ? templateInfo.myWeight : "--"}
+        </Text>
+      </View>
+    );
   };
 
   useEffect(() => {
@@ -106,23 +104,32 @@ export default function ExerciseTemplate(props) {
         <Text style={{ fontWeight: "bold" }}>{exercise}</Text>
         {renderTemplateInfo()}
         <KeyboardAvoidingView
+          style={styles.keyboardAvoidingView}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-          <TextInput
-            placeholder={"Sets"}
-            value={sets}
-            onChangeText={(text) => setSets(text)}
-          />
-          <TextInput
-            placeholder={"Reps"}
-            value={reps}
-            onChangeText={(text) => setReps(text)}
-          />
-          <TextInput
-            placeholder={"Weight"}
-            value={weight}
-            onChangeText={(text) => setWeight(text)}
-          />
+          <View style={styles.inputField}>
+            <TextInput
+              style={{ marginRight: 25 }}
+              placeholder={"Sets"}
+              placeholderTextColor={colors.gray}
+              value={sets}
+              onChangeText={(text) => setSets(text)}
+            />
+            <TextInput
+              style={{ marginRight: 25 }}
+              placeholder={"Reps"}
+              placeholderTextColor={colors.gray}
+              value={reps}
+              onChangeText={(text) => setReps(text)}
+            />
+            <TextInput
+              style={{ marginRight: 25 }}
+              placeholder={"Weight"}
+              placeholderTextColor={colors.gray}
+              value={weight}
+              onChangeText={(text) => setWeight(text)}
+            />
+          </View>
           <TouchableOpacity onPress={() => handleTemplateInfo()}>
             <View>
               <Text>+</Text>
@@ -140,5 +147,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     backgroundColor: colors.white,
+  },
+  keyboardAvoidingView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  inputField: {
+    flexDirection: "row",
   },
 });

@@ -131,7 +131,7 @@ export default function TemplateScreen({ navigation, route }) {
           </TouchableOpacity> */}
 
           <View style={styles.exercises}>{renderExercises()}</View>
-          <Text style={styles.headerText}>Add Exercises</Text>
+          <Text style={styles.headerText2}>ADD EXERCISES</Text>
           <View style={styles.exercises}>
             {/* Exercises get displayed here */}
             {bodypartsList.map((bodypart) => {
@@ -169,5 +169,11 @@ const styles = StyleSheet.create({
   },
   exercisesWrapper: {
     paddingHorizontal: 20,
+  },
+  headerText2: {
+    fontSize: 36,
+    fontWeight: "bold",
+    color: colors.black,
+    alignSelf: "center",
   },
 });
