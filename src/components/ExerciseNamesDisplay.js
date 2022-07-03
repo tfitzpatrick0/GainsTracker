@@ -54,11 +54,16 @@ export default function ExerciseNamesDisplay(props) {
   return (
     <View>
       <TouchableOpacity onPress={() => toggleDisplay()}>
-        <Text>{bodypart}</Text>
+        <Text style={styles.bodypartText}>{bodypart}</Text>
       </TouchableOpacity>
       {renderDisplay()}
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  bodypartText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+});

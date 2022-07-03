@@ -120,7 +120,7 @@ export default function TemplateScreen({ navigation, route }) {
       >
         <View style={styles.exercisesWrapper}>
           <TouchableOpacity onPress={() => navRoutines()}>
-            <Text style={styles.headerText}>Go Back</Text>
+            <Text style={styles.headerText}>{"<"}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navHistory(routine)}>
             <Text style={styles.headerText}>Go To History</Text>
