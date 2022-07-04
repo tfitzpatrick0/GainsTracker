@@ -95,15 +95,15 @@ export default function RoutinesScreen({ navigation }) {
 
         {/* <TouchableOpacity onPress={() => showAsyncStorage()}>
           <Text>Show Async Storage</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => clearAsyncStorage()}>
-          <Text>Clear Async Storage</Text>
         </TouchableOpacity> */}
 
         {/* END TESTING FUNCTIONS */}
 
         <View style={styles.headerWrapper}>
           <Text style={styles.headerText}>My Routines</Text>
+          <TouchableOpacity onPress={() => clearAsyncStorage()}>
+            <Text>Clear Async Storage</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.myRoutinesWrapper}>{renderMyRoutines()}</View>

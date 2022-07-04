@@ -6,7 +6,7 @@ import exercisesMap from "../constants/exercisesMap";
 export default function ExerciseNamesDisplay(props) {
   const { bodypart, callOnPress } = props;
   const exercisesList = exercisesMap[bodypart];
-  const [display, setDisplay] = useState(false);
+  const [exercisesDisplay, setExercisesDisplay] = useState(false);
 
   // Use API calls to get exercises for each bodypart:
   // limited by allowed number of API calls, store as constant values instead
@@ -35,12 +35,8 @@ export default function ExerciseNamesDisplay(props) {
   //   setExercises(resExercises);
   // }
 
-  const toggleDisplay = () => {
-    setDisplay(!display);
-  };
-
   const renderDisplay = () => {
-    if (display) {
+    if (exercisesDisplay) {
       return exercisesList.map((exercise, index) => {
         return (
           <TouchableOpacity key={index} onPress={() => callOnPress(exercise)}>
@@ -53,7 +49,7 @@ export default function ExerciseNamesDisplay(props) {
 
   return (
     <View>
-      <TouchableOpacity onPress={() => toggleDisplay()}>
+      <TouchableOpacity onPress={() => setExercisesDisplay(!exercisesDisplay)}>
         <Text style={styles.bodypartText}>{bodypart}</Text>
       </TouchableOpacity>
       {renderDisplay()}

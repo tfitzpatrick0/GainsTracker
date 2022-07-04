@@ -9,13 +9,14 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NewWorkoutTemplate from "../components/NewWorkoutTemplate";
+import HistoryItem from "../components/HistoryItem";
 import colors from "../constants/colors";
 
 export default function HistoryScreen({ route }) {
   const { routine } = route.params;
-  const [myHistory, setMyHistory] = useState([]);
   const [myWorkout, setMyWorkout] = useState([]);
-  const [display, setDisplay] = useState(false);
+  const [myHistory, setMyHistory] = useState([]);
+  const [workoutDisplay, setWorkoutDisplay] = useState(false);
 
   const initMyHistory = async () => {
     try {
@@ -81,15 +82,11 @@ export default function HistoryScreen({ route }) {
   const handleAddHistory = () => {
     storageAddHistory(myWorkout);
     setMyHistory([...myHistory, myWorkout]);
-    setDisplay(false);
-  };
-
-  const displayNewWorkout = () => {
-    setDisplay(true);
+    setWorkoutDisplay(false);
   };
 
   const renderNewWorkout = () => {
-    if (display) {
+    if (workoutDisplay) {
       console.log("START NEW WORKOUT");
       console.log("Starting new workout - workout template:", myWorkout);
 
@@ -104,7 +101,7 @@ export default function HistoryScreen({ route }) {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.nwOptionsButton}
-              onPress={() => setDisplay(false)}
+              onPress={() => setWorkoutDisplay(false)}
             >
               <Text style={styles.buttonText}>EXIT</Text>
             </TouchableOpacity>
@@ -124,10 +121,10 @@ export default function HistoryScreen({ route }) {
   }, [routine]);
 
   useEffect(() => {
-    if (!display) {
+    if (!workoutDisplay) {
       initMyWorkout();
     }
-  }, [display]);
+  }, [workoutDisplay]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -138,7 +135,7 @@ export default function HistoryScreen({ route }) {
       >
         <View style={styles.headerWrapper}>
           <Text style={styles.headerText}>{routine}</Text>
-          <TouchableOpacity onPress={() => displayNewWorkout()}>
+          <TouchableOpacity onPress={() => setWorkoutDisplay(true)}>
             <View style={styles.displayNWButton}>
               <Text style={styles.buttonText}>New Workout</Text>
             </View>
@@ -148,23 +145,31 @@ export default function HistoryScreen({ route }) {
         {renderNewWorkout()}
 
         <View style={styles.historyWrapper}>
-          <Text style={styles.historyText}>WORKOUT HISTORY</Text>
-          {myHistory.map((history, index) => {
+          <Text style={styles.historyTitle}>WORKOUT HISTORY</Text>
+
+          {myHistory.map((historyItem, index) => {
             return (
+              <HistoryItem
+                key={index}
+                historyItem={historyItem}
+                index={index}
+              />
+            );
+            /* return (
               <View key={index}>
                 <Text>History {index + 1}</Text>
-                {history.map((exerciseTemplate, index) => {
+                {historyItem.map((exerciseTemplate, index) => {
                   return (
-                    <View key={index}>
-                      <Text>Exercise: {exerciseTemplate.exercise}</Text>
-                      <Text>Sets: {exerciseTemplate.sets}</Text>
-                      <Text>Reps: {exerciseTemplate.reps}</Text>
-                      <Text>Weight: {exerciseTemplate.weight}</Text>
-                    </View>
+    <View>
+      <Text>Exercise: {exerciseTemplate.exercise}</Text>
+      <Text>Sets: {exerciseTemplate.sets}</Text>
+      <Text>Reps: {exerciseTemplate.reps}</Text>
+      <Text>Weight: {exerciseTemplate.weight}</Text>
+    </View>
                   );
                 })}
               </View>
-            );
+            ); */
           })}
         </View>
       </ScrollView>
@@ -222,7 +227,7 @@ const styles = StyleSheet.create({
   historyWrapper: {
     margin: 20,
   },
-  historyText: {
+  historyTitle: {
     alignSelf: "center",
     fontSize: 30,
     fontWeight: "bold",
