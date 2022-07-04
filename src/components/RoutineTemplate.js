@@ -33,7 +33,7 @@ export default function RoutineTemplate(props) {
           routine={routine}
           index={index}
           exercise={exercise}
-          manageStorage={storageTemplateInfo}
+          manageCurrTemplate={storageTemplateInfo}
         />
       </TouchableOpacity>
     );

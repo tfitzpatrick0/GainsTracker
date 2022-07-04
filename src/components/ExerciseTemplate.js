@@ -12,7 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../constants/colors";
 
 export default function ExerciseTemplate(props) {
-  const { routine, index, exercise, manageStorage } = props;
+  const { routine, index, exercise, manageCurrTemplate } = props;
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
   const [weight, setWeight] = useState();
@@ -46,7 +46,7 @@ export default function ExerciseTemplate(props) {
 
   const handleTemplateInfo = () => {
     Keyboard.dismiss();
-    manageStorage(index, sets, reps, weight);
+    manageCurrTemplate(index, sets, reps, weight);
 
     setTemplateInfo((templateInfo) => ({
       ...templateInfo,

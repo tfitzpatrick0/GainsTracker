@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NewWorkoutTemplate from "../components/NewWorkoutTemplate";
-import TestExercise from "../components/TestExercise";
+import colors from "../constants/colors";
 
 export default function HistoryScreen({ route }) {
   const { routine } = route.params;
@@ -67,8 +67,6 @@ export default function HistoryScreen({ route }) {
       currRoutine.history.push(workout);
       await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
 
-      setDisplay(false);
-
       // Testing
       const updatedRoutine = JSON.parse(await AsyncStorage.getItem(routine));
       console.log(
@@ -83,49 +81,12 @@ export default function HistoryScreen({ route }) {
   const handleAddHistory = () => {
     storageAddHistory(myWorkout);
     setMyHistory([...myHistory, myWorkout]);
-  };
-
-  const handleUpdateWorkout = (index, sets, reps, weight) => {
-    let updatedWorkout = [...myWorkout];
-    if (sets) updatedWorkout[index].sets = sets;
-    if (reps) updatedWorkout[index].reps = reps;
-    if (weight) updatedWorkout[index].weight = weight;
-    console.log("UPDATED WORKOUT:", updatedWorkout);
-    setMyWorkout(updatedWorkout);
+    setDisplay(false);
   };
 
   const displayNewWorkout = () => {
     setDisplay(true);
   };
-
-  // const renderNewWorkout = () => {
-  //   if (display) {
-  //     console.log("START NEW WORKOUT");
-  //     console.log("Starting new workout - workout template:", myWorkout);
-  //     return (
-  //       <View>
-  //         <TouchableOpacity onPress={() => handleAddHistory()}>
-  //           <Text>DONE</Text>
-  //         </TouchableOpacity>
-  //         <Text>New Workout</Text>
-  //         {myWorkout.map((exerciseTemplate, index) => {
-  //           return (
-  //             <TestExercise
-  //               key={index}
-  //               routine={routine}
-  //               index={index}
-  //               exercise={exerciseTemplate.exercise}
-  //               isets={exerciseTemplate.sets}
-  //               ireps={exerciseTemplate.reps}
-  //               iweight={exerciseTemplate.weight}
-  //               handleUpdateWorkout={handleUpdateWorkout}
-  //             />
-  //           );
-  //         })}
-  //       </View>
-  //     );
-  //   }
-  // };
 
   const renderNewWorkout = () => {
     if (display) {
@@ -133,15 +94,25 @@ export default function HistoryScreen({ route }) {
       console.log("Starting new workout - workout template:", myWorkout);
 
       return (
-        <View>
-          <TouchableOpacity onPress={() => handleAddHistory()}>
-            <Text>DONE</Text>
-          </TouchableOpacity>
-          <Text>New Workout</Text>
+        <View style={styles.newWorkoutWrapper}>
+          <View style={styles.newWorkoutOptions}>
+            <TouchableOpacity
+              style={styles.nwOptionsButton}
+              onPress={() => handleAddHistory()}
+            >
+              <Text style={styles.buttonText}>DONE</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.nwOptionsButton}
+              onPress={() => setDisplay(false)}
+            >
+              <Text style={styles.buttonText}>EXIT</Text>
+            </TouchableOpacity>
+          </View>
           <NewWorkoutTemplate
             routine={routine}
             myWorkout={myWorkout}
-            handleUpdateWorkout={handleUpdateWorkout}
+            setMyWorkout={setMyWorkout}
           />
         </View>
       );
@@ -158,12 +129,6 @@ export default function HistoryScreen({ route }) {
     }
   }, [display]);
 
-  // const navModRoutine = (routine) => {
-  //   console.log("NAVIGATING - Template: ", routine);
-
-  //   navigation.navigate("Template", { routine });
-  // };
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -174,25 +139,16 @@ export default function HistoryScreen({ route }) {
         <View style={styles.headerWrapper}>
           <Text style={styles.headerText}>{routine}</Text>
           <TouchableOpacity onPress={() => displayNewWorkout()}>
-            {/* <TouchableOpacity onPress={() => navHistory(routine)}> */}
-
-            {/* <TouchableOpacity onPress={() => displayNewWorkout()}>
-              <Text style={styles.headerText}>Start New Workout</Text>
-            </TouchableOpacity> */}
-
-            <View style={styles.newWorkoutButton}>
-              <Text style={{ fontWeight: "bold", color: colors.red }}>
-                New Workout
-              </Text>
+            <View style={styles.displayNWButton}>
+              <Text style={styles.buttonText}>New Workout</Text>
             </View>
           </TouchableOpacity>
         </View>
+
+        {renderNewWorkout()}
+
         <View style={styles.historyWrapper}>
-          {renderNewWorkout()}
-          {/* <TouchableOpacity onPress={() => navModRoutine(routine)}>
-            <Text>Go to routine - {routine}</Text>
-          </TouchableOpacity> */}
-          <Text style={styles.historyText}>History</Text>
+          <Text style={styles.historyText}>WORKOUT HISTORY</Text>
           {myHistory.map((history, index) => {
             return (
               <View key={index}>
@@ -219,33 +175,52 @@ export default function HistoryScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ddd",
+    backgroundColor: colors.lightGray,
   },
   headerWrapper: {
-    margin: 20,
+    marginTop: 20,
+    marginHorizontal: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 5,
     borderBottomColor: colors.red,
   },
   headerText: {
-    alignSelf: "center",
     fontSize: 36,
     fontWeight: "bold",
+    color: colors.black,
   },
-  newWorkoutButton: {
-    width: 150,
-    padding: 8,
+  displayNWButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    alignItems: "center",
     backgroundColor: colors.lightRed,
     borderRadius: 10,
-    justifyContent: "center",
+  },
+  buttonText: {
+    color: colors.red,
+    fontWeight: "bold",
+  },
+  newWorkoutWrapper: {
+    marginTop: 20,
+    marginHorizontal: 20,
+    borderBottomWidth: 5,
+    borderBottomColor: colors.red,
+  },
+  newWorkoutOptions: {
+    marginBottom: 8,
+    flexDirection: "row",
+  },
+  nwOptionsButton: {
+    marginRight: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
     alignItems: "center",
-    // borderColor: "#C0C0C0",
-    // borderWidth: 3,
+    backgroundColor: colors.lightRed,
+    borderRadius: 10,
   },
   historyWrapper: {
-    paddingTop: 50,
-    paddingHorizontal: 20,
+    margin: 20,
   },
   historyText: {
     alignSelf: "center",

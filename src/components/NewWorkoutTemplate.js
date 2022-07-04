@@ -3,7 +3,16 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import ExerciseTemplate from "./ExerciseTemplate";
 
 export default function NewWorkoutTemplate(props) {
-  const { routine, myWorkout, handleUpdateWorkout } = props;
+  const { routine, myWorkout, setMyWorkout } = props;
+
+  const handleUpdateWorkout = (index, sets, reps, weight) => {
+    let updatedWorkout = [...myWorkout];
+    if (sets) updatedWorkout[index].sets = sets;
+    if (reps) updatedWorkout[index].reps = reps;
+    if (weight) updatedWorkout[index].weight = weight;
+    console.log("UPDATED WORKOUT:", updatedWorkout);
+    setMyWorkout(updatedWorkout);
+  };
 
   return myWorkout.map((exerciseTemplate, index) => {
     return (
@@ -12,7 +21,7 @@ export default function NewWorkoutTemplate(props) {
         routine={routine}
         index={index}
         exercise={exerciseTemplate.exercise}
-        manageStorage={handleUpdateWorkout}
+        manageCurrTemplate={handleUpdateWorkout}
       />
     );
   });

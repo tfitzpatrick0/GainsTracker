@@ -166,14 +166,11 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   navHistoryButton: {
-    width: 100,
-    padding: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    alignItems: "center",
     backgroundColor: colors.lightRed,
     borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    // borderColor: "#C0C0C0",
-    // borderWidth: 3,
   },
   exercisesWrapper: {
     paddingHorizontal: 20,

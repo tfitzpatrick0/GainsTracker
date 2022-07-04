@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   myRoutinesWrapper: {
-    padding: 20,
+    margin: 20,
     flex: 1,
   },
   addNewRoutineWrapper: {
