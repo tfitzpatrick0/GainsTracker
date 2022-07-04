@@ -12,7 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../constants/colors";
 
 export default function ExerciseTemplate(props) {
-  const { routine, index, exercise, handleRemoveExercise } = props;
+  const { routine, index, exercise, manageStorage } = props;
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
   const [weight, setWeight] = useState();
@@ -44,28 +44,9 @@ export default function ExerciseTemplate(props) {
     }
   };
 
-  const storageTemplateInfo = async (sets, reps, weight) => {
-    try {
-      const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
-      console.log("currExerciseTemplate: ", currExerciseTemplate);
-
-      if (sets) currExerciseTemplate.sets = sets;
-      if (reps) currExerciseTemplate.reps = reps;
-      if (weight) currExerciseTemplate.weight = weight;
-
-      console.log("Updated currExerciseTemplate: ", currExerciseTemplate);
-
-      currRoutine.template[index] = JSON.stringify(currExerciseTemplate);
-      await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const handleTemplateInfo = () => {
     Keyboard.dismiss();
-    storageTemplateInfo(sets, reps, weight);
+    manageStorage(index, sets, reps, weight);
 
     setTemplateInfo((templateInfo) => ({
       ...templateInfo,
@@ -96,47 +77,42 @@ export default function ExerciseTemplate(props) {
   }, []);
 
   return (
-    <View>
-      <TouchableOpacity
-        style={styles.exerciseTemplateWrapper}
-        onPress={() => handleRemoveExercise(index)}
+    <View style={styles.exerciseTemplateWrapper}>
+      <Text style={{ fontWeight: "bold" }}>{exercise}</Text>
+      {renderTemplateInfo()}
+      <KeyboardAvoidingView
+        style={styles.keyboardAvoidingView}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <Text style={{ fontWeight: "bold" }}>{exercise}</Text>
-        {renderTemplateInfo()}
-        <KeyboardAvoidingView
-          style={styles.keyboardAvoidingView}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-        >
-          <View style={styles.inputField}>
-            <TextInput
-              style={{ marginRight: 25 }}
-              placeholder={"Sets"}
-              placeholderTextColor={colors.gray}
-              value={sets}
-              onChangeText={(text) => setSets(text)}
-            />
-            <TextInput
-              style={{ marginRight: 25 }}
-              placeholder={"Reps"}
-              placeholderTextColor={colors.gray}
-              value={reps}
-              onChangeText={(text) => setReps(text)}
-            />
-            <TextInput
-              style={{ marginRight: 25 }}
-              placeholder={"Weight"}
-              placeholderTextColor={colors.gray}
-              value={weight}
-              onChangeText={(text) => setWeight(text)}
-            />
+        <View style={styles.inputField}>
+          <TextInput
+            style={{ marginRight: 25 }}
+            placeholder={"Sets"}
+            placeholderTextColor={colors.gray}
+            value={sets}
+            onChangeText={(text) => setSets(text)}
+          />
+          <TextInput
+            style={{ marginRight: 25 }}
+            placeholder={"Reps"}
+            placeholderTextColor={colors.gray}
+            value={reps}
+            onChangeText={(text) => setReps(text)}
+          />
+          <TextInput
+            style={{ marginRight: 25 }}
+            placeholder={"Weight"}
+            placeholderTextColor={colors.gray}
+            value={weight}
+            onChangeText={(text) => setWeight(text)}
+          />
+        </View>
+        <TouchableOpacity onPress={() => handleTemplateInfo()}>
+          <View>
+            <Text>+</Text>
           </View>
-          <TouchableOpacity onPress={() => handleTemplateInfo()}>
-            <View>
-              <Text>+</Text>
-            </View>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     </View>
   );
 }

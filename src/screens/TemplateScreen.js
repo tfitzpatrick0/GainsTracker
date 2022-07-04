@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ExerciseTemplate from "../components/ExerciseTemplate";
+import RoutineTemplate from "../components/RoutineTemplate";
 import ExerciseNamesDisplay from "../components/ExerciseNamesDisplay";
 import bodypartsList from "../constants/bodypartsList";
 import colors from "../constants/colors";
@@ -82,29 +82,15 @@ export default function TemplateScreen({ navigation, route }) {
     storageRemoveExercise(routine, index);
   };
 
-  const renderExercises = () => {
-    return myExercises.map((exercise, index) => {
-      return (
-        <ExerciseTemplate
-          key={index}
-          routine={routine}
-          index={index}
-          exercise={exercise}
-          handleRemoveExercise={handleRemoveExercise}
-        />
-      );
-    });
-  };
-
   useEffect(() => {
     initMyExercises();
   }, []);
 
-  const navRoutines = () => {
-    console.log("NAVIGATING - Routines");
+  // const navRoutines = () => {
+  //   console.log("NAVIGATING - Routines");
 
-    navigation.navigate("Routines");
-  };
+  //   navigation.navigate("Routines");
+  // };
 
   const navHistory = (routine) => {
     console.log("NAVIGATING - History: ", routine);
@@ -122,7 +108,11 @@ export default function TemplateScreen({ navigation, route }) {
         <View style={styles.headerWrapper}>
           <Text style={styles.headerText}>{routine}</Text>
           <TouchableOpacity onPress={() => navHistory(routine)}>
-            <Text>Go To History</Text>
+            <View style={styles.navHistoryButton}>
+              <Text style={{ fontWeight: "bold", color: colors.red }}>
+                History
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
         <View style={styles.exercisesWrapper}>
@@ -130,7 +120,15 @@ export default function TemplateScreen({ navigation, route }) {
             <Text style={styles.headerText}>{"<"}</Text>
           </TouchableOpacity> */}
 
-          <View style={styles.exercises}>{renderExercises()}</View>
+          {/* ROUTINE TEMPLATE */}
+          <View style={styles.exercises}>
+            <RoutineTemplate
+              routine={routine}
+              myExercises={myExercises}
+              handleRemoveExercise={handleRemoveExercise}
+            />
+          </View>
+
           <Text style={styles.headerText2}>ADD EXERCISES</Text>
           <View style={styles.exercises}>
             {/* Exercises get displayed here */}
@@ -167,11 +165,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.black,
   },
+  navHistoryButton: {
+    width: 100,
+    padding: 8,
+    backgroundColor: colors.lightRed,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    // borderColor: "#C0C0C0",
+    // borderWidth: 3,
+  },
   exercisesWrapper: {
     paddingHorizontal: 20,
   },
   headerText2: {
-    fontSize: 36,
+    fontSize: 30,
     fontWeight: "bold",
     color: colors.black,
     alignSelf: "center",

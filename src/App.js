@@ -29,13 +29,23 @@ export default function App() {
               fontWeight: "bold",
               color: colors.black,
             },
+            headerBackTitle: "Home",
           }}
-          // options={{ headerShown: false }}
         />
         <Stack.Screen
           name="History"
           component={HistoryScreen}
-          // options={{ headerShown: false }}
+          options={{
+            title: "",
+            headerStyle: { backgroundColor: colors.red },
+            headerTintColor: colors.lightGray,
+            headerTitleStyle: {
+              fontSize: 18,
+              fontWeight: "bold",
+              color: colors.black,
+            },
+            headerBackTitle: "Edit",
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

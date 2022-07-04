@@ -50,7 +50,7 @@ export default function AddNewRoutine(props) {
         onChangeText={(text) => setRoutine(text)}
       />
       <TouchableOpacity onPress={() => handleAddRoutine()}>
-        <View style={styles.addButton}>
+        <View style={styles.addRoutineButton}>
           <Text style={{ fontWeight: "bold" }}>ADD</Text>
         </View>
       </TouchableOpacity>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     // borderColor: "#C0C0C0",
     // borderWidth: 3,
   },
-  addButton: {
+  addRoutineButton: {
     width: 60,
     paddingVertical: 15,
     backgroundColor: colors.white,
