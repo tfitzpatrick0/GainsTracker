@@ -145,12 +145,15 @@ export default function HistoryScreen({ route }) {
         {renderNewWorkout()}
 
         <View style={styles.historyWrapper}>
-          <Text style={styles.historyTitle}>WORKOUT HISTORY</Text>
+          <View style={styles.historyTitle}>
+            <Text style={styles.historyTitleText}>WORKOUT HISTORY</Text>
+          </View>
 
           {myHistory.map((historyItem, index) => {
             return (
               <HistoryItem
                 key={index}
+                routine={routine}
                 historyItem={historyItem}
                 index={index}
               />
@@ -183,8 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGray,
   },
   headerWrapper: {
-    marginTop: 20,
-    marginHorizontal: 20,
+    margin: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 5,
@@ -207,10 +209,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   newWorkoutWrapper: {
-    marginTop: 20,
     marginHorizontal: 20,
-    borderBottomWidth: 5,
-    borderBottomColor: colors.red,
   },
   newWorkoutOptions: {
     marginBottom: 8,
@@ -225,11 +224,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   historyWrapper: {
-    margin: 20,
+    marginHorizontal: 20,
   },
   historyTitle: {
+    marginBottom: 10,
+    paddingHorizontal: 8,
     alignSelf: "center",
+    borderBottomWidth: 5,
+    borderBottomColor: colors.blue,
+  },
+  historyTitleText: {
     fontSize: 30,
     fontWeight: "bold",
+    color: colors.black,
   },
 });

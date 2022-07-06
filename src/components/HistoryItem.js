@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import colors from "../constants/colors";
 
 export default function HistoryItem(props) {
-  const { historyItem, index } = props;
+  const { routine, historyItem, index } = props;
   const [historyDisplay, setHistoryDisplay] = useState(false);
 
   const renderHistory = () => {
@@ -28,7 +28,9 @@ export default function HistoryItem(props) {
   return (
     <View style={styles.historyItemWrapper}>
       <TouchableOpacity onPress={() => setHistoryDisplay(!historyDisplay)}>
-        <Text style={styles.historyItemTitle}>History {index + 1}</Text>
+        <Text style={styles.historyItemTitle}>
+          {routine} - Workout #{index + 1}
+        </Text>
       </TouchableOpacity>
       {renderHistory()}
     </View>
@@ -45,11 +47,12 @@ const styles = StyleSheet.create({
   historyItemTitle: {
     fontSize: 16,
     fontWeight: "bold",
+    color: colors.black,
   },
   exerciseTemplate: {
     marginTop: 5,
     paddingTop: 5,
-    borderTopColor: colors.blue,
+    borderTopColor: colors.lightBlue,
     borderTopWidth: 2,
   },
 });

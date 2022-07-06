@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ExerciseTemplate from "./ExerciseTemplate";
 import colors from "../constants/colors";
@@ -28,16 +29,42 @@ export default function RoutineTemplate(props) {
 
   return myExercises.map((exercise, index) => {
     return (
-      <TouchableOpacity key={index} onPress={() => handleRemoveExercise(index)}>
+      // <TouchableOpacity key={index} onPress={() => handleRemoveExercise(index)}>
+      //   <ExerciseTemplate
+      //     routine={routine}
+      //     index={index}
+      //     exercise={exercise}
+      //     manageCurrTemplate={storageTemplateInfo}
+      //   />
+      // </TouchableOpacity>
+
+      <View key={index} style={styles.exerciseTemplateWrapper}>
         <ExerciseTemplate
           routine={routine}
           index={index}
           exercise={exercise}
           manageCurrTemplate={storageTemplateInfo}
         />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.test}
+          onPress={() => handleRemoveExercise(index)}
+        >
+          <Text style={{ color: colors.lightRed }}>
+            <Icon name="delete" size={24} />
+          </Text>
+        </TouchableOpacity>
+      </View>
     );
   });
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  exerciseTemplateWrapper: {
+    width: "100%",
+  },
+  test: {
+    position: "absolute",
+    top: 4,
+    right: 4,
+  },
+});

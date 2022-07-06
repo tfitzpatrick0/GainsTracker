@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import colors from "../constants/colors";
 import exercisesMap from "../constants/exercisesMap";
 
 // SHARED COMPONENT
@@ -37,18 +38,25 @@ export default function ExerciseNamesDisplay(props) {
 
   const renderDisplay = () => {
     if (exercisesDisplay) {
-      return exercisesList.map((exercise, index) => {
-        return (
-          <TouchableOpacity key={index} onPress={() => callOnPress(exercise)}>
-            <Text>{exercise}</Text>
-          </TouchableOpacity>
-        );
-      });
+      return (
+        <View style={styles.exercisesDisplay}>
+          {exercisesList.map((exercise, index) => {
+            return (
+              <TouchableOpacity
+                key={index}
+                onPress={() => callOnPress(exercise)}
+              >
+                <Text>{exercise}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      );
     }
   };
 
   return (
-    <View>
+    <View style={styles.exercisesDisplayWrapper}>
       <TouchableOpacity onPress={() => setExercisesDisplay(!exercisesDisplay)}>
         <Text style={styles.bodypartText}>{bodypart}</Text>
       </TouchableOpacity>
@@ -58,8 +66,22 @@ export default function ExerciseNamesDisplay(props) {
 }
 
 const styles = StyleSheet.create({
+  exercisesDisplayWrapper: {
+    marginVertical: 2,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    backgroundColor: colors.white,
+    borderRadius: 10,
+  },
   bodypartText: {
     fontSize: 16,
     fontWeight: "bold",
+    color: colors.black,
+  },
+  exercisesDisplay: {
+    marginTop: 5,
+    paddingTop: 5,
+    borderTopColor: colors.lightBlue,
+    borderTopWidth: 2,
   },
 });

@@ -26,10 +26,6 @@ export default function ExerciseTemplate(props) {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
 
-      // Parsing currRoutine.template[index] may give undefined error because AsyncStorage at [index] not initialized
-      // Therefore, need to check if index is in range of currRoutine.template
-      // Might not be an issue after fix for removing exercises -> wait until Async is updated to re-render?
-
       let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
       console.log("INIT SETS AND REPS: ", currExerciseTemplate);
 
@@ -109,7 +105,7 @@ export default function ExerciseTemplate(props) {
         </View>
         <TouchableOpacity onPress={() => handleTemplateInfo()}>
           <View>
-            <Text>+</Text>
+            <Text style={{ fontSize: 18, color: colors.lightRed }}>+</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>

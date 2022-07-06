@@ -129,7 +129,9 @@ export default function TemplateScreen({ navigation, route }) {
             />
           </View>
 
-          <Text style={styles.headerText2}>ADD EXERCISES</Text>
+          <View style={styles.addExercisesTitle}>
+            <Text style={styles.addExercisesTitleText}>ADD EXERCISES</Text>
+          </View>
           <View style={styles.exercises}>
             {/* Exercises get displayed here */}
             {bodypartsList.map((bodypart) => {
@@ -175,10 +177,16 @@ const styles = StyleSheet.create({
   exercisesWrapper: {
     paddingHorizontal: 20,
   },
-  headerText2: {
+  addExercisesTitle: {
+    marginBottom: 10,
+    paddingHorizontal: 8,
+    alignSelf: "center",
+    borderBottomWidth: 5,
+    borderBottomColor: colors.blue,
+  },
+  addExercisesTitleText: {
     fontSize: 30,
     fontWeight: "bold",
     color: colors.black,
-    alignSelf: "center",
   },
 });

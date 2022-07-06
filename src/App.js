@@ -15,7 +15,15 @@ export default function App() {
         <Stack.Screen
           name="Routines"
           component={RoutinesScreen}
-          options={{ headerShown: false }}
+          options={{
+            title: "My Routines",
+            headerStyle: { backgroundColor: colors.red },
+            headerTitleStyle: {
+              fontSize: 24,
+              fontWeight: "bold",
+              colors: colors.black,
+            },
+          }}
         />
         <Stack.Screen
           name="Template"

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import ExerciseTemplate from "./ExerciseTemplate";
 
 export default function NewWorkoutTemplate(props) {

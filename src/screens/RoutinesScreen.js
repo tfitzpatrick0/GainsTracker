@@ -99,12 +99,12 @@ export default function RoutinesScreen({ navigation }) {
 
         {/* END TESTING FUNCTIONS */}
 
-        <View style={styles.headerWrapper}>
+        {/* <View style={styles.headerWrapper}>
           <Text style={styles.headerText}>My Routines</Text>
           <TouchableOpacity onPress={() => clearAsyncStorage()}>
             <Text>Clear Async Storage</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <View style={styles.myRoutinesWrapper}>{renderMyRoutines()}</View>
 
@@ -125,21 +125,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.lightGray,
   },
-  headerWrapper: {
-    padding: 20,
-    backgroundColor: colors.red,
-  },
-  headerText: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: colors.black,
-  },
   myRoutinesWrapper: {
     margin: 20,
     flex: 1,
   },
   addNewRoutineWrapper: {
-    padding: 20,
+    paddingTop: 20,
+    paddingHorizontal: 20,
     backgroundColor: colors.blue,
   },
 });
