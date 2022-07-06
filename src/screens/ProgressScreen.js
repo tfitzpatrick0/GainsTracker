@@ -12,7 +12,7 @@ import NewWorkoutTemplate from "../components/NewWorkoutTemplate";
 import HistoryItem from "../components/HistoryItem";
 import colors from "../constants/colors";
 
-export default function HistoryScreen({ route }) {
+export default function ProgressScreen({ route }) {
   const { routine } = route.params;
   const [myWorkout, setMyWorkout] = useState([]);
   const [myHistory, setMyHistory] = useState([]);

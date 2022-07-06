@@ -92,10 +92,10 @@ export default function TemplateScreen({ navigation, route }) {
   //   navigation.navigate("Routines");
   // };
 
-  const navHistory = (routine) => {
-    console.log("NAVIGATING - History: ", routine);
+  const navProgress = (routine) => {
+    console.log("NAVIGATING - Progress:", routine);
 
-    navigation.navigate("History", { routine });
+    navigation.navigate("Progress", { routine });
   };
 
   return (
@@ -107,8 +107,8 @@ export default function TemplateScreen({ navigation, route }) {
       >
         <View style={styles.headerWrapper}>
           <Text style={styles.headerText}>{routine}</Text>
-          <TouchableOpacity onPress={() => navHistory(routine)}>
-            <View style={styles.navHistoryButton}>
+          <TouchableOpacity onPress={() => navProgress(routine)}>
+            <View style={styles.navProgressButton}>
               <Text style={{ fontWeight: "bold", color: colors.red }}>
                 Progress
               </Text>
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.black,
   },
-  navHistoryButton: {
+  navProgressButton: {
     paddingVertical: 8,
     paddingHorizontal: 16,
     alignItems: "center",

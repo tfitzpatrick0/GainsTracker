@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RoutinesScreen from "./screens/RoutinesScreen";
 import TemplateScreen from "./screens/TemplateScreen";
-import HistoryScreen from "./screens/HistoryScreen";
+import ProgressScreen from "./screens/ProgressScreen";
 import colors from "./constants/colors";
 
 const Stack = createNativeStackNavigator();
@@ -41,8 +41,8 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="History"
-          component={HistoryScreen}
+          name="Progress"
+          component={ProgressScreen}
           options={{
             title: "Track your Progress",
             headerStyle: { backgroundColor: colors.red },

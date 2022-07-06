@@ -82,7 +82,7 @@ export default function RoutinesScreen({ navigation }) {
   }, []);
 
   const navTemplate = (routine) => {
-    console.log("NAVIGATING - Template: ", routine);
+    console.log("NAVIGATING - Template:", routine);
 
     navigation.navigate("Template", { routine });
   };
