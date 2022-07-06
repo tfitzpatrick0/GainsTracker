@@ -59,7 +59,7 @@ export default function ExerciseTemplate(props) {
   const renderTemplateInfo = () => {
     return (
       <View>
-        <Text>
+        <Text style={{ color: colors.black }}>
           Sets: {templateInfo.mySets ? templateInfo.mySets : "--"} | Reps:{" "}
           {templateInfo.myReps ? templateInfo.myReps : "--"} | Weight
           {" ("}lbs{")"}: {templateInfo.myWeight ? templateInfo.myWeight : "--"}
@@ -74,7 +74,9 @@ export default function ExerciseTemplate(props) {
 
   return (
     <View style={styles.exerciseTemplateWrapper}>
-      <Text style={{ fontWeight: "bold" }}>{exercise}</Text>
+      <Text style={{ fontWeight: "bold", color: colors.black }}>
+        {exercise}
+      </Text>
       {renderTemplateInfo()}
       <KeyboardAvoidingView
         style={styles.keyboardAvoidingView}

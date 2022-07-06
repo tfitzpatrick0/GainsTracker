@@ -11,8 +11,10 @@ export default function HistoryItem(props) {
       return historyItem.map((exerciseTemplate, index) => {
         return (
           <View key={index} style={styles.exerciseTemplate}>
-            <Text>Exercise: {exerciseTemplate.exercise}</Text>
-            <Text>
+            <Text style={{ color: colors.black }}>
+              Exercise: {exerciseTemplate.exercise}
+            </Text>
+            <Text style={{ color: colors.black }}>
               Sets: {exerciseTemplate.sets ? exerciseTemplate.sets : "--"} |
               Reps: {exerciseTemplate.reps ? exerciseTemplate.reps : "--"} |
               Weight

@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   addExercisesTitle: {
     marginBottom: 10,
     paddingHorizontal: 8,
-    alignSelf: "center",
+    alignItems: "center",
     borderBottomWidth: 5,
     borderBottomColor: colors.blue,
   },

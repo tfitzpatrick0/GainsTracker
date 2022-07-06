@@ -51,7 +51,7 @@ export default function AddNewRoutine(props) {
       />
       <TouchableOpacity onPress={() => handleAddRoutine()}>
         <View style={styles.addRoutineButton}>
-          <Text style={{ fontWeight: "bold" }}>ADD</Text>
+          <Text style={{ fontWeight: "bold", color: colors.black }}>ADD</Text>
         </View>
       </TouchableOpacity>
     </KeyboardAvoidingView>

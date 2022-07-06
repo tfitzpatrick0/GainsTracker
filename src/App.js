@@ -21,7 +21,7 @@ export default function App() {
             headerTitleStyle: {
               fontSize: 24,
               fontWeight: "bold",
-              colors: colors.black,
+              color: colors.black,
             },
           }}
         />

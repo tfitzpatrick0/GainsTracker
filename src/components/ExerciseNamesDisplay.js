@@ -46,7 +46,7 @@ export default function ExerciseNamesDisplay(props) {
                 key={index}
                 onPress={() => callOnPress(exercise)}
               >
-                <Text>{exercise}</Text>
+                <Text style={{ color: colors.darkGray }}>{exercise}</Text>
               </TouchableOpacity>
             );
           })}

@@ -158,21 +158,6 @@ export default function HistoryScreen({ route }) {
                 index={index}
               />
             );
-            /* return (
-              <View key={index}>
-                <Text>History {index + 1}</Text>
-                {historyItem.map((exerciseTemplate, index) => {
-                  return (
-    <View>
-      <Text>Exercise: {exerciseTemplate.exercise}</Text>
-      <Text>Sets: {exerciseTemplate.sets}</Text>
-      <Text>Reps: {exerciseTemplate.reps}</Text>
-      <Text>Weight: {exerciseTemplate.weight}</Text>
-    </View>
-                  );
-                })}
-              </View>
-            ); */
           })}
         </View>
       </ScrollView>
@@ -229,7 +214,7 @@ const styles = StyleSheet.create({
   historyTitle: {
     marginBottom: 10,
     paddingHorizontal: 8,
-    alignSelf: "center",
+    alignItems: "center",
     borderBottomWidth: 5,
     borderBottomColor: colors.blue,
   },
