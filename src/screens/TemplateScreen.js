@@ -110,7 +110,7 @@ export default function TemplateScreen({ navigation, route }) {
           <TouchableOpacity onPress={() => navHistory(routine)}>
             <View style={styles.navHistoryButton}>
               <Text style={{ fontWeight: "bold", color: colors.red }}>
-                History
+                Progress
               </Text>
             </View>
           </TouchableOpacity>

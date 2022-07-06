@@ -44,7 +44,7 @@ export default function App() {
           name="History"
           component={HistoryScreen}
           options={{
-            title: "",
+            title: "Track your Progress",
             headerStyle: { backgroundColor: colors.red },
             headerTintColor: colors.lightGray,
             headerTitleStyle: {
