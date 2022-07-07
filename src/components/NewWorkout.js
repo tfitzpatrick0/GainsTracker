@@ -1,9 +1,15 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Exercise from "./Exercise";
 
 export default function NewWorkout(props) {
-  const { routine, myWorkout, setMyWorkout } = props;
+  const {
+    routine,
+    handleAddHistory,
+    setNewWorkoutDisplay,
+    myWorkout,
+    setMyWorkout,
+  } = props;
 
   const handleUpdateWorkout = (index, sets, reps, weight) => {
     let updatedWorkout = [...myWorkout];
@@ -14,17 +20,49 @@ export default function NewWorkout(props) {
     setMyWorkout(updatedWorkout);
   };
 
-  return myWorkout.map((exerciseTemplate, index) => {
-    return (
-      <Exercise
-        key={index}
-        routine={routine}
-        index={index}
-        exercise={exerciseTemplate.exercise}
-        manageCurrTemplate={handleUpdateWorkout}
-      />
-    );
-  });
+  return (
+    <View>
+      <View style={styles.newWorkoutOptions}>
+        <TouchableOpacity
+          style={styles.nwOptionsButton}
+          onPress={() => handleAddHistory()}
+        >
+          <Text style={{ fontWeight: "bold", color: colors.red }}>DONE</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.nwOptionsButton}
+          onPress={() => setNewWorkoutDisplay(false)}
+        >
+          <Text style={{ fontWeight: "bold", color: colors.red }}>EXIT</Text>
+        </TouchableOpacity>
+      </View>
+
+      {myWorkout.map((templateItem, index) => {
+        return (
+          <Exercise
+            key={index}
+            routine={routine}
+            index={index}
+            exercise={templateItem.exercise}
+            manageCurrTemplate={handleUpdateWorkout}
+          />
+        );
+      })}
+    </View>
+  );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  newWorkoutOptions: {
+    marginBottom: 8,
+    flexDirection: "row",
+  },
+  nwOptionsButton: {
+    marginRight: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    alignItems: "center",
+    backgroundColor: colors.lightRed,
+    borderRadius: 10,
+  },
+});

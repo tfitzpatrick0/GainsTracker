@@ -8,18 +8,16 @@ export default function WorkoutHistory(props) {
 
   const renderHistory = () => {
     if (historyDisplay) {
-      return historyItem.map((exerciseTemplate, index) => {
+      return historyItem.map((templateItem, index) => {
         return (
-          <View key={index} style={styles.exerciseTemplate}>
+          <View key={index} style={styles.templateItem}>
             <Text style={{ color: colors.black }}>
-              Exercise: {exerciseTemplate.exercise}
+              Exercise: {templateItem.exercise}
             </Text>
             <Text style={{ color: colors.black }}>
-              Sets: {exerciseTemplate.sets ? exerciseTemplate.sets : "--"} |
-              Reps: {exerciseTemplate.reps ? exerciseTemplate.reps : "--"} |
-              Weight
-              {" ("}lbs{")"}:{" "}
-              {exerciseTemplate.weight ? exerciseTemplate.weight : "--"}
+              Sets: {templateItem.sets ? templateItem.sets : "--"} | Reps:{" "}
+              {templateItem.reps ? templateItem.reps : "--"} | Weight
+              {" ("}lbs{")"}: {templateItem.weight ? templateItem.weight : "--"}
             </Text>
           </View>
         );
@@ -30,10 +28,11 @@ export default function WorkoutHistory(props) {
   return (
     <View style={styles.historyItemWrapper}>
       <TouchableOpacity onPress={() => setHistoryDisplay(!historyDisplay)}>
-        <Text style={styles.historyItemTitle}>
+        <Text style={styles.workoutNumber}>
           {routine} - Workout #{index + 1}
         </Text>
       </TouchableOpacity>
+
       {renderHistory()}
     </View>
   );
@@ -46,12 +45,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 10,
   },
-  historyItemTitle: {
+  workoutNumber: {
     fontSize: 16,
     fontWeight: "bold",
     color: colors.black,
   },
-  exerciseTemplate: {
+  templateItem: {
     marginTop: 5,
     paddingTop: 5,
     borderTopColor: colors.lightBlue,
