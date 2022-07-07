@@ -9,9 +9,10 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Template from "../components/Template";
-import ExerciseNamesDisplay from "../components/ExerciseNamesDisplay";
+import ExercisesDisplay from "../components/ExercisesDisplay";
 import bodypartsList from "../constants/bodypartsList";
 import colors from "../constants/colors";
+import { render } from "react-dom";
 
 // Create/modify a template for a workout routine
 export default function TemplateScreen({ navigation, route }) {
@@ -24,8 +25,8 @@ export default function TemplateScreen({ navigation, route }) {
       if (currRoutine.template.length > 0) {
         let exercises = [];
 
-        currRoutine.template.forEach((exerciseTemplate) => {
-          exercises.push(JSON.parse(exerciseTemplate).exercise);
+        currRoutine.template.forEach((templateItem) => {
+          exercises.push(JSON.parse(templateItem).exercise);
         });
         console.log("INIT EXERCISES:", exercises);
         setMyExercises(exercises);
@@ -35,11 +36,10 @@ export default function TemplateScreen({ navigation, route }) {
     }
   };
 
-  // key = routine, value = {exercise, sets, reps}
-  const storageAddExercise = async (routine, exerciseTemplate) => {
+  const storageAddExercise = async (routine, templateItem) => {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
-      currRoutine.template.push(exerciseTemplate);
+      currRoutine.template.push(templateItem);
       await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
 
       // Testing
@@ -56,25 +56,25 @@ export default function TemplateScreen({ navigation, route }) {
       currRoutine.template.splice(index, 1);
       await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
 
+      setMyExercises([]);
+      initMyExercises();
+
       // Testing
       const updatedRoutine = JSON.parse(await AsyncStorage.getItem(routine));
       console.log("Removed exercise, updated storage:", updatedRoutine);
-
-      setMyExercises([]);
-      initMyExercises();
     } catch (e) {
       console.log(e);
     }
   };
 
   const handleAddExercise = (exercise) => {
-    const exerciseTemplate = {
+    const templateItem = {
       exercise: exercise,
       sets: null,
       reps: null,
       weight: null,
     };
-    storageAddExercise(routine, JSON.stringify(exerciseTemplate));
+    storageAddExercise(routine, JSON.stringify(templateItem));
     setMyExercises([...myExercises, exercise]);
   };
 
@@ -82,15 +82,26 @@ export default function TemplateScreen({ navigation, route }) {
     storageRemoveExercise(routine, index);
   };
 
+  const renderExercisesDisplay = () => {
+    return (
+      <View>
+        {/* Exercises get displayed here */}
+        {bodypartsList.map((bodypart) => {
+          return (
+            <ExercisesDisplay
+              key={bodypart}
+              bodypart={bodypart}
+              callOnPress={handleAddExercise}
+            />
+          );
+        })}
+      </View>
+    );
+  };
+
   useEffect(() => {
     initMyExercises();
   }, []);
-
-  // const navRoutines = () => {
-  //   console.log("NAVIGATING - Routines");
-
-  //   navigation.navigate("Routines");
-  // };
 
   const navProgress = (routine) => {
     console.log("NAVIGATING - Progress:", routine);
@@ -105,45 +116,33 @@ export default function TemplateScreen({ navigation, route }) {
           flexGrow: 1,
         }}
       >
-        <View style={styles.headerWrapper}>
-          <Text style={styles.headerText}>{routine}</Text>
-          <TouchableOpacity onPress={() => navProgress(routine)}>
-            <View style={styles.navProgressButton}>
-              <Text style={{ fontWeight: "bold", color: colors.red }}>
-                Progress
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.exercisesWrapper}>
-          {/* <TouchableOpacity onPress={() => navRoutines()}>
-            <Text style={styles.headerText}>{"<"}</Text>
-          </TouchableOpacity> */}
+        <View style={styles.templateWrapper}>
+          <View style={styles.templateTitle}>
+            <Text style={styles.routineName}>{routine}</Text>
+            <TouchableOpacity onPress={() => navProgress(routine)}>
+              <View style={styles.navProgressButton}>
+                <Text style={{ fontWeight: "bold", color: colors.red }}>
+                  Progress
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
 
           {/* ROUTINE TEMPLATE */}
-          <View style={styles.exercises}>
+          <View>
             <Template
               routine={routine}
               myExercises={myExercises}
               handleRemoveExercise={handleRemoveExercise}
             />
           </View>
+        </View>
+        <View style={styles.exercisesWrapper}>
+          <View style={styles.exercisesTitle}>
+            <Text style={styles.addExercises}>ADD EXERCISES</Text>
+          </View>
 
-          <View style={styles.addExercisesTitle}>
-            <Text style={styles.addExercisesTitleText}>ADD EXERCISES</Text>
-          </View>
-          <View style={styles.exercises}>
-            {/* Exercises get displayed here */}
-            {bodypartsList.map((bodypart) => {
-              return (
-                <ExerciseNamesDisplay
-                  key={bodypart}
-                  bodypart={bodypart}
-                  callOnPress={handleAddExercise}
-                />
-              );
-            })}
-          </View>
+          {renderExercisesDisplay()}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -155,14 +154,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ddd",
   },
-  headerWrapper: {
-    margin: 20,
+  templateWrapper: {
+    marginTop: 20,
+    marginHorizontal: 20,
+  },
+  templateTitle: {
+    marginBottom: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 5,
     borderBottomColor: colors.red,
   },
-  headerText: {
+  routineName: {
     fontSize: 36,
     fontWeight: "bold",
     color: colors.black,
@@ -175,16 +178,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   exercisesWrapper: {
-    paddingHorizontal: 20,
+    marginHorizontal: 20,
   },
-  addExercisesTitle: {
+  exercisesTitle: {
     marginBottom: 10,
     paddingHorizontal: 8,
     alignItems: "center",
     borderBottomWidth: 5,
     borderBottomColor: colors.blue,
   },
-  addExercisesTitleText: {
+  addExercises: {
     fontSize: 30,
     fontWeight: "bold",
     color: colors.black,

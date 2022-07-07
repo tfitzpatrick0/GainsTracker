@@ -29,16 +29,7 @@ export default function Template(props) {
 
   return myExercises.map((exercise, index) => {
     return (
-      // <TouchableOpacity key={index} onPress={() => handleRemoveExercise(index)}>
-      //   <Exercise
-      //     routine={routine}
-      //     index={index}
-      //     exercise={exercise}
-      //     manageCurrTemplate={storageTemplateInfo}
-      //   />
-      // </TouchableOpacity>
-
-      <View key={index} style={styles.exerciseTemplateWrapper}>
+      <View key={index} style={styles.templateItemWrapper}>
         <Exercise
           routine={routine}
           index={index}
@@ -46,7 +37,7 @@ export default function Template(props) {
           manageCurrTemplate={storageTemplateInfo}
         />
         <TouchableOpacity
-          style={styles.test}
+          style={styles.removeExercise}
           onPress={() => handleRemoveExercise(index)}
         >
           <Text style={{ color: colors.lightRed }}>
@@ -59,10 +50,10 @@ export default function Template(props) {
 }
 
 const styles = StyleSheet.create({
-  exerciseTemplateWrapper: {
+  templateItemWrapper: {
     width: "100%",
   },
-  test: {
+  removeExercise: {
     position: "absolute",
     top: 4,
     right: 4,

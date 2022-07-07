@@ -73,13 +73,15 @@ export default function Exercise(props) {
   }, []);
 
   return (
-    <View style={styles.exerciseTemplateWrapper}>
+    <View style={styles.exerciseWrapper}>
       <Text style={{ fontWeight: "bold", color: colors.black }}>
         {exercise}
       </Text>
+
       {renderTemplateInfo()}
+
       <KeyboardAvoidingView
-        style={styles.keyboardAvoidingView}
+        style={styles.updateExercise}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <View style={styles.inputField}>
@@ -105,6 +107,7 @@ export default function Exercise(props) {
             onChangeText={(text) => setWeight(text)}
           />
         </View>
+
         <TouchableOpacity onPress={() => handleTemplateInfo()}>
           <View>
             <Text style={{ fontSize: 18, color: colors.lightRed }}>+</Text>
@@ -116,13 +119,13 @@ export default function Exercise(props) {
 }
 
 const styles = StyleSheet.create({
-  exerciseTemplateWrapper: {
+  exerciseWrapper: {
     marginBottom: 10,
     padding: 10,
     borderRadius: 10,
     backgroundColor: colors.white,
   },
-  keyboardAvoidingView: {
+  updateExercise: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
