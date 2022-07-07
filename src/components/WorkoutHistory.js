@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import colors from "../constants/colors";
 
-export default function HistoryItem(props) {
+export default function WorkoutHistory(props) {
   const { routine, historyItem, index } = props;
   const [historyDisplay, setHistoryDisplay] = useState(false);
 

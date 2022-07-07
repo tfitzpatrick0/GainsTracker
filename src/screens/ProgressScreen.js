@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NewWorkout from "../components/NewWorkout";
-import HistoryItem from "../components/HistoryItem";
+import WorkoutHistory from "../components/WorkoutHistory";
 import colors from "../constants/colors";
 
 export default function ProgressScreen({ route }) {
@@ -151,7 +151,7 @@ export default function ProgressScreen({ route }) {
 
           {myHistory.map((historyItem, index) => {
             return (
-              <HistoryItem
+              <WorkoutHistory
                 key={index}
                 routine={routine}
                 historyItem={historyItem}
