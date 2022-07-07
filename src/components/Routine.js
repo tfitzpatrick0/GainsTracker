@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import colors from "../constants/colors";
 
 export default function Routine(props) {
@@ -13,7 +14,9 @@ export default function Routine(props) {
       >
         <Text style={styles.text}>{routine}</Text>
         <TouchableOpacity onPress={() => handleRemoveRoutine(index)}>
-          <Text style={styles.text}>-</Text>
+          <Text style={{ color: colors.lightRed }}>
+            <Icon name="close-box-outline" size={20} />
+          </Text>
         </TouchableOpacity>
       </TouchableOpacity>
     </View>
@@ -23,14 +26,14 @@ export default function Routine(props) {
 const styles = StyleSheet.create({
   item: {
     marginVertical: 5,
+    padding: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     borderRadius: 10,
     backgroundColor: colors.white,
   },
   text: {
-    padding: 10,
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: "bold",
     color: colors.black,
   },

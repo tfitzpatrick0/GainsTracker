@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import RoutineTemplate from "../components/RoutineTemplate";
+import Template from "../components/Template";
 import ExerciseNamesDisplay from "../components/ExerciseNamesDisplay";
 import bodypartsList from "../constants/bodypartsList";
 import colors from "../constants/colors";
@@ -122,7 +122,7 @@ export default function TemplateScreen({ navigation, route }) {
 
           {/* ROUTINE TEMPLATE */}
           <View style={styles.exercises}>
-            <RoutineTemplate
+            <Template
               routine={routine}
               myExercises={myExercises}
               handleRemoveExercise={handleRemoveExercise}

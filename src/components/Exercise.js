@@ -11,7 +11,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../constants/colors";
 
-export default function ExerciseTemplate(props) {
+export default function Exercise(props) {
   const { routine, index, exercise, manageCurrTemplate } = props;
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
@@ -26,14 +26,14 @@ export default function ExerciseTemplate(props) {
     try {
       const currRoutine = JSON.parse(await AsyncStorage.getItem(routine));
 
-      let currExerciseTemplate = JSON.parse(currRoutine.template[index]);
-      console.log("INIT SETS AND REPS: ", currExerciseTemplate);
+      let currTemplateItem = JSON.parse(currRoutine.template[index]);
+      console.log("INIT SETS AND REPS: ", currTemplateItem);
 
       setTemplateInfo((templateInfo) => ({
         ...templateInfo,
-        mySets: currExerciseTemplate.sets,
-        myReps: currExerciseTemplate.reps,
-        myWeight: currExerciseTemplate.weight,
+        mySets: currTemplateItem.sets,
+        myReps: currTemplateItem.reps,
+        myWeight: currTemplateItem.weight,
       }));
     } catch (e) {
       console.log(e);

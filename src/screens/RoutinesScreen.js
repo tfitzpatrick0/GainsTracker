@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Routine from "../components/Routine";
-import AddNewRoutine from "../components/AddNewRoutine";
+import AddRoutine from "../components/AddRoutine";
 import colors from "../constants/colors";
 
 export default function RoutinesScreen({ navigation }) {
@@ -109,10 +109,7 @@ export default function RoutinesScreen({ navigation }) {
         <View style={styles.myRoutinesWrapper}>{renderMyRoutines()}</View>
 
         <View style={styles.addNewRoutineWrapper}>
-          <AddNewRoutine
-            myRoutines={myRoutines}
-            setMyRoutines={setMyRoutines}
-          />
+          <AddRoutine myRoutines={myRoutines} setMyRoutines={setMyRoutines} />
         </View>
       </View>
       <SafeAreaView style={{ backgroundColor: colors.blue }} />

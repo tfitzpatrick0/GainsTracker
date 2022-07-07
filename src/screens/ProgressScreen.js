@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import NewWorkoutTemplate from "../components/NewWorkoutTemplate";
+import NewWorkout from "../components/NewWorkout";
 import HistoryItem from "../components/HistoryItem";
 import colors from "../constants/colors";
 
@@ -106,7 +106,7 @@ export default function ProgressScreen({ route }) {
               <Text style={styles.buttonText}>EXIT</Text>
             </TouchableOpacity>
           </View>
-          <NewWorkoutTemplate
+          <NewWorkout
             routine={routine}
             myWorkout={myWorkout}
             setMyWorkout={setMyWorkout}

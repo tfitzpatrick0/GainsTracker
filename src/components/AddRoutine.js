@@ -11,7 +11,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../constants/colors";
 
-export default function AddNewRoutine(props) {
+export default function AddRoutine(props) {
   const { myRoutines, setMyRoutines } = props;
   const [routine, setRoutine] = useState();
 

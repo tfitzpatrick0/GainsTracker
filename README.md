@@ -18,3 +18,8 @@ To use:
 ~ Need to add a file for storing API key ~
 
 Might want to use ASYNC storage in RoutinesScreen.js to maintain data for each Routine, and then pass data from ASYNC storage to ModRoutineScreen.js as params for the selected routine.
+
+AddNewRoutine.js --> AddRoutine.js $
+NewWorkoutTemplate.js --> NewWorkout.js $
+RoutineTemplate.js --> Template.js $
+ExerciseTemplate.js --> Exercise.js $

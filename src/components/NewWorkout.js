@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import ExerciseTemplate from "./ExerciseTemplate";
+import Exercise from "./Exercise";
 
-export default function NewWorkoutTemplate(props) {
+export default function NewWorkout(props) {
   const { routine, myWorkout, setMyWorkout } = props;
 
   const handleUpdateWorkout = (index, sets, reps, weight) => {
@@ -16,7 +16,7 @@ export default function NewWorkoutTemplate(props) {
 
   return myWorkout.map((exerciseTemplate, index) => {
     return (
-      <ExerciseTemplate
+      <Exercise
         key={index}
         routine={routine}
         index={index}
