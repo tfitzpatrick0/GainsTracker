@@ -33,11 +33,9 @@ export default function RoutinesScreen({ navigation }) {
   const showAsyncStorage = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
-      console.log("SHOW ASYNC:", keys);
+      console.log("SHOW ASYNC KEYS:", keys);
       const result = await AsyncStorage.multiGet(keys);
       console.log("SHOW ASYNC RESULT:", result);
-
-      // return result.map((req) => JSON.parse(req)).forEach(console.log);
     } catch (error) {
       console.error(error);
     }
@@ -88,47 +86,42 @@ export default function RoutinesScreen({ navigation }) {
   };
 
   return (
-    <>
-      <SafeAreaView style={{ backgroundColor: colors.red }} />
-      <View style={styles.container}>
-        {/* TESTING FUNCTIONS */}
+    <SafeAreaView style={styles.container}>
+      {/* TESTING FUNCTIONS */}
 
-        {/* <TouchableOpacity onPress={() => showAsyncStorage()}>
-          <Text>Show Async Storage</Text>
-        </TouchableOpacity> */}
+      {/* <View style={{ backgroundColor: colors.lightGray }}>
+          <TouchableOpacity onPress={() => showAsyncStorage()}>
+            <Text>Show Async Storage</Text>
+          </TouchableOpacity>
 
-        {/* END TESTING FUNCTIONS */}
-
-        {/* <View style={styles.headerWrapper}>
-          <Text style={styles.headerText}>My Routines</Text>
           <TouchableOpacity onPress={() => clearAsyncStorage()}>
             <Text>Clear Async Storage</Text>
           </TouchableOpacity>
         </View> */}
 
-        <View style={styles.myRoutinesWrapper}>{renderMyRoutines()}</View>
+      {/* END TESTING FUNCTIONS */}
 
-        <View style={styles.addNewRoutineWrapper}>
-          <AddRoutine myRoutines={myRoutines} setMyRoutines={setMyRoutines} />
-        </View>
+      <View style={styles.myRoutinesWrapper}>{renderMyRoutines()}</View>
+
+      <View style={styles.addRoutineWrapper}>
+        <AddRoutine myRoutines={myRoutines} setMyRoutines={setMyRoutines} />
       </View>
-      <SafeAreaView style={{ backgroundColor: colors.blue }} />
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.blue,
   },
   myRoutinesWrapper: {
-    margin: 20,
+    padding: 20,
     flex: 1,
+    backgroundColor: colors.lightGray,
   },
-  addNewRoutineWrapper: {
+  addRoutineWrapper: {
     paddingTop: 20,
     paddingHorizontal: 20,
-    backgroundColor: colors.blue,
   },
 });

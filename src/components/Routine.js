@@ -9,10 +9,10 @@ export default function Routine(props) {
   return (
     <View>
       <TouchableOpacity
-        style={styles.item}
+        style={styles.routineItem}
         onPress={() => navTemplate(routine)}
       >
-        <Text style={styles.text}>{routine}</Text>
+        <Text style={styles.name}>{routine}</Text>
         <TouchableOpacity onPress={() => handleRemoveRoutine(index)}>
           <Text style={{ color: colors.lightRed }}>
             <Icon name="close-box-outline" size={20} />
@@ -24,7 +24,7 @@ export default function Routine(props) {
 }
 
 const styles = StyleSheet.create({
-  item: {
+  routineItem: {
     marginVertical: 5,
     padding: 10,
     flexDirection: "row",
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: colors.white,
   },
-  text: {
+  name: {
     fontSize: 16,
     fontWeight: "bold",
     color: colors.black,

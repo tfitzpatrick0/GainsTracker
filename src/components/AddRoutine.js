@@ -43,7 +43,7 @@ export default function AddRoutine(props) {
       style={styles.inputFieldWrapper}
     >
       <TextInput
-        style={styles.textInput}
+        style={styles.inputRoutine}
         placeholder={"Add a routine..."}
         placeholderTextColor={colors.gray}
         value={routine}
@@ -64,14 +64,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
-  textInput: {
+  inputRoutine: {
     width: 250,
     paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: colors.white,
     borderRadius: 10,
-    // borderColor: "#C0C0C0",
-    // borderWidth: 3,
   },
   addRoutineButton: {
     width: 60,
@@ -80,7 +78,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    // borderColor: "#C0C0C0",
-    // borderWidth: 3,
   },
 });

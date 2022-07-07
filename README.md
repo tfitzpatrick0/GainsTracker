@@ -23,3 +23,4 @@ AddNewRoutine.js --> AddRoutine.js $
 NewWorkoutTemplate.js --> NewWorkout.js $
 RoutineTemplate.js --> Template.js $
 ExerciseTemplate.js --> Exercise.js $
+HistoryItem.js --> WorkoutHistory.js $
