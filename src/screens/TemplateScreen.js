@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   exercisesWrapper: {
-    marginBottom: 20,
+    marginBottom: 30,
     marginHorizontal: 20,
   },
   exercisesTitle: {

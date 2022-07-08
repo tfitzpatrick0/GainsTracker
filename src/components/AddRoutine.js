@@ -56,6 +56,7 @@ export default function AddRoutine(props) {
 
 const styles = StyleSheet.create({
   inputFieldWrapper: {
+    marginBottom: 30,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",

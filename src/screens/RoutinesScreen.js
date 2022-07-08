@@ -88,13 +88,7 @@ export default function RoutinesScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={10}
-        style={styles.container}
-      > */}
-
+    <View style={styles.container}>
       {/* TESTING FUNCTIONS */}
 
       {/* <View style={{ backgroundColor: colors.lightGray }}>
@@ -118,23 +112,22 @@ export default function RoutinesScreen({ navigation }) {
       >
         <AddRoutine myRoutines={myRoutines} setMyRoutines={setMyRoutines} />
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.blue,
+    backgroundColor: colors.lightGray,
   },
   myRoutinesWrapper: {
     padding: 20,
     flex: 1,
-    backgroundColor: colors.lightGray,
   },
   addRoutineWrapper: {
-    alignItems: "center",
     paddingTop: 20,
-    paddingHorizontal: 20,
+    alignItems: "center",
+    backgroundColor: colors.blue,
   },
 });
