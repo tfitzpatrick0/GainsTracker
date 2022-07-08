@@ -5,7 +5,9 @@ import {
   View,
   SafeAreaView,
   ScrollView,
+  KeyboardAvoidingView,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Routine from "../components/Routine";
@@ -87,6 +89,12 @@ export default function RoutinesScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={10}
+        style={styles.container}
+      > */}
+
       {/* TESTING FUNCTIONS */}
 
       {/* <View style={{ backgroundColor: colors.lightGray }}>
@@ -103,9 +111,13 @@ export default function RoutinesScreen({ navigation }) {
 
       <View style={styles.myRoutinesWrapper}>{renderMyRoutines()}</View>
 
-      <View style={styles.addRoutineWrapper}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={110}
+        style={styles.addRoutineWrapper}
+      >
         <AddRoutine myRoutines={myRoutines} setMyRoutines={setMyRoutines} />
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -121,6 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGray,
   },
   addRoutineWrapper: {
+    alignItems: "center",
     paddingTop: 20,
     paddingHorizontal: 20,
   },

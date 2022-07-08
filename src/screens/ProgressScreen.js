@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
+  KeyboardAvoidingView,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
@@ -126,7 +126,11 @@ export default function ProgressScreen({ route }) {
   }, [newWorkoutDisplay]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={110}
+      style={styles.container}
+    >
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -155,7 +159,7 @@ export default function ProgressScreen({ route }) {
           {renderWorkoutHistory()}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -188,6 +192,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   historyWrapper: {
+    marginBottom: 20,
     marginHorizontal: 20,
   },
   historyTitle: {

@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  KeyboardAvoidingView,
   TextInput,
   Keyboard,
 } from "react-native";
@@ -78,9 +77,9 @@ export default function Exercise(props) {
 
       {renderTemplateInfo()}
 
-      <KeyboardAvoidingView
+      <View
         style={styles.updateExercise}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        // behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <View style={styles.inputField}>
           <TextInput
@@ -111,7 +110,7 @@ export default function Exercise(props) {
             <Text style={{ fontSize: 18, color: colors.lightRed }}>+</Text>
           </View>
         </TouchableOpacity>
-      </KeyboardAvoidingView>
+      </View>
     </View>
   );
 }

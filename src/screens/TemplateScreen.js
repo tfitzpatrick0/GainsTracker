@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
@@ -109,7 +108,7 @@ export default function TemplateScreen({ navigation, route }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -144,7 +143,7 @@ export default function TemplateScreen({ navigation, route }) {
           {renderExercisesDisplay()}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -177,6 +176,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   exercisesWrapper: {
+    marginBottom: 20,
     marginHorizontal: 20,
   },
   exercisesTitle: {
