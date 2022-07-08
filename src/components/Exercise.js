@@ -74,9 +74,7 @@ export default function Exercise(props) {
 
   return (
     <View style={styles.exerciseWrapper}>
-      <Text style={{ fontWeight: "bold", color: colors.black }}>
-        {exercise}
-      </Text>
+      <Text style={styles.exercise}>{exercise}</Text>
 
       {renderTemplateInfo()}
 
@@ -124,6 +122,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     backgroundColor: colors.white,
+  },
+  exercise: {
+    maxWidth: "90%",
+    fontWeight: "bold",
+    color: colors.black,
   },
   updateExercise: {
     flexDirection: "row",

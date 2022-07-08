@@ -12,7 +12,6 @@ import Template from "../components/Template";
 import ExercisesDisplay from "../components/ExercisesDisplay";
 import bodypartsList from "../constants/bodypartsList";
 import colors from "../constants/colors";
-import { render } from "react-dom";
 
 // Create/modify a template for a workout routine
 export default function TemplateScreen({ navigation, route }) {
