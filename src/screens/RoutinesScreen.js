@@ -91,15 +91,13 @@ export default function RoutinesScreen({ navigation }) {
     <View style={styles.container}>
       {/* TESTING FUNCTIONS */}
 
-      {/* <View style={{ backgroundColor: colors.lightGray }}>
-          <TouchableOpacity onPress={() => showAsyncStorage()}>
-            <Text>Show Async Storage</Text>
-          </TouchableOpacity>
+      {/* <TouchableOpacity onPress={() => showAsyncStorage()}>
+        <Text>Show Async Storage</Text>
+      </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => clearAsyncStorage()}>
-            <Text>Clear Async Storage</Text>
-          </TouchableOpacity>
-        </View> */}
+      <TouchableOpacity onPress={() => clearAsyncStorage()}>
+        <Text>Clear Async Storage</Text>
+      </TouchableOpacity> */}
 
       {/* END TESTING FUNCTIONS */}
 
