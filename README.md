@@ -4,7 +4,11 @@ React Native app for fitness and tracking gym progress. You can create and custo
 
 This project was created using the default template provided by `npx create-react-native-app`
 
-![homescreen](./screenshots/homeScreen.png)
+<p float="left">
+  <img src="./screenshots/homeScreen.png" width="100" />
+  <img src="./screenshots/templateScreen.png" width="100" /> 
+  <img src="./screenshots/progressScreen.png" width="100" />
+</p>
 
 EXPO Browser DevTools not displaying:
 
