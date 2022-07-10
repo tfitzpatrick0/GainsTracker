@@ -20,5 +20,4 @@ This project was created using the default template provided by `npx create-reac
 
 If you try to open EXPO Browser DevTools (localhost:19002) and it's not displaying:
 
-- `npx uri-scheme`
 - `npx uri-scheme add gains-tracker`
