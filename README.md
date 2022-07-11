@@ -18,6 +18,12 @@ This project was created using the default template provided by `npx create-reac
 4. `npm run start`
 5. Enter `i` or `a` in the EXPO terminal to open the app in either iOS or Android simulator, or scan the QR code to open the app on your personal device.
 
+Requirements:
+
+- node.js
+- To simulate on Android - [Setup Android Simulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- To simulate on iOS - [Setup iOS Simulator](https://docs.expo.dev/workflow/ios-simulator/)
+
 If you try to open EXPO Browser DevTools (localhost:19002) and it's not displaying:
 
 - `npx uri-scheme add gains-tracker`
