@@ -1,6 +1,6 @@
 # GainsTracker
 
-React Native app for fitness and tracking gym progress. You can create and customize workout routines with a long list of potential exercises and log your results to see your performance.
+React Native app for fitness and tracking gym progress. You can create and customize workout routines with a long list of exercises and log results to see your performance.
 
 <p float="left">
   <img src="./screenshots/homeScreen.png" width="200" />
