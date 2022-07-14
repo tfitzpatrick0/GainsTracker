@@ -20,7 +20,7 @@ This project was created using the default template provided by `npx create-reac
 
 Requirements:
 
-- node.js
+- Node.js (developed with v18.1.0)
 - To simulate on Android - [Setup Android Simulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - To simulate on iOS - [Setup iOS Simulator](https://docs.expo.dev/workflow/ios-simulator/)
 
