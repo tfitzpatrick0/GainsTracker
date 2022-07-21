@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  KeyboardAvoidingView,
   TextInput,
   Keyboard,
 } from "react-native";
@@ -74,15 +73,13 @@ export default function Exercise(props) {
 
   return (
     <View style={styles.exerciseWrapper}>
-      <Text style={{ fontWeight: "bold", color: colors.black }}>
-        {exercise}
-      </Text>
+      <Text style={styles.exercise}>{exercise}</Text>
 
       {renderTemplateInfo()}
 
-      <KeyboardAvoidingView
+      <View
         style={styles.updateExercise}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        // behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <View style={styles.inputField}>
           <TextInput
@@ -113,7 +110,7 @@ export default function Exercise(props) {
             <Text style={{ fontSize: 18, color: colors.lightRed }}>+</Text>
           </View>
         </TouchableOpacity>
-      </KeyboardAvoidingView>
+      </View>
     </View>
   );
 }
@@ -124,6 +121,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     backgroundColor: colors.white,
+  },
+  exercise: {
+    maxWidth: "90%",
+    fontWeight: "bold",
+    color: colors.black,
   },
   updateExercise: {
     flexDirection: "row",

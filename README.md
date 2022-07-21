@@ -1,20 +1,29 @@
 # GainsTracker
 
-React Native app for fitness and tracking gains
+React Native app for fitness and tracking gym progress. The user can create and customize workout routines with a long list of exercises and log results to view their personal progress.
 
-EXPO Browser DevTools not displaying:
+<p float="left">
+  <img src="./screenshots/homeScreen.png" width="200" />
+  <img src="./screenshots/templateScreen.png" width="200" /> 
+  <img src="./screenshots/progressScreen.png" width="200" />
+</p>
 
-- `npx uri-scheme`
-- `npx uri-scheme add [project-name]`
+This project was created using the default template provided by `npx create-react-native-app`
 
-API Used: https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb/specs
+## How to run
 
-To use:
+1. `git clone https://github.com/tfitzpatrick0/GainsTracker.git`
+2. `cd GainsTracker`
+3. `npm i`
+4. `npm run start`
+5. Enter `i` or `a` in the EXPO terminal to open the app in either iOS or Android simulator, or scan the QR code to open the app on your personal device.
 
-- need to sign up for an API account
-- get your key
-- store key in application
+Requirements:
 
-~ Need to add a file for storing API key ~
+- Node.js (developed with v18.1.0)
+- To simulate on Android - [Setup Android Simulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- To simulate on iOS - [Setup iOS Simulator](https://docs.expo.dev/workflow/ios-simulator/)
 
-Might want to use ASYNC storage in RoutinesScreen.js to maintain data for each Routine, and then pass data from ASYNC storage to ModRoutineScreen.js as params for the selected routine.
+If you try to open EXPO Browser DevTools (localhost:19002) and it's not displaying:
+
+- `npx uri-scheme add gains-tracker`

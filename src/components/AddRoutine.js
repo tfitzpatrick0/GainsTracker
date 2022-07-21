@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
   Keyboard,
@@ -38,10 +37,7 @@ export default function AddRoutine(props) {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.inputFieldWrapper}
-    >
+    <View style={styles.inputFieldWrapper}>
       <TextInput
         style={styles.inputRoutine}
         placeholder={"Add a routine..."}
@@ -54,18 +50,20 @@ export default function AddRoutine(props) {
           <Text style={{ fontWeight: "bold", color: colors.black }}>ADD</Text>
         </View>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   inputFieldWrapper: {
+    marginBottom: 30,
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
   },
   inputRoutine: {
     width: 250,
+    marginRight: 15,
     paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: colors.white,

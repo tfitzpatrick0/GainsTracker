@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   name: {
+    maxWidth: "90%",
     fontSize: 16,
     fontWeight: "bold",
     color: colors.black,

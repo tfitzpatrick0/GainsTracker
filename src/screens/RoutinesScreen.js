@@ -5,7 +5,9 @@ import {
   View,
   SafeAreaView,
   ScrollView,
+  KeyboardAvoidingView,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Routine from "../components/Routine";
@@ -86,42 +88,44 @@ export default function RoutinesScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {/* TESTING FUNCTIONS */}
 
-      {/* <View style={{ backgroundColor: colors.lightGray }}>
-          <TouchableOpacity onPress={() => showAsyncStorage()}>
-            <Text>Show Async Storage</Text>
-          </TouchableOpacity>
+      {/* <TouchableOpacity onPress={() => showAsyncStorage()}>
+        <Text>Show Async Storage</Text>
+      </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => clearAsyncStorage()}>
-            <Text>Clear Async Storage</Text>
-          </TouchableOpacity>
-        </View> */}
+      <TouchableOpacity onPress={() => clearAsyncStorage()}>
+        <Text>Clear Async Storage</Text>
+      </TouchableOpacity> */}
 
       {/* END TESTING FUNCTIONS */}
 
       <View style={styles.myRoutinesWrapper}>{renderMyRoutines()}</View>
 
-      <View style={styles.addRoutineWrapper}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={110}
+        style={styles.addRoutineWrapper}
+      >
         <AddRoutine myRoutines={myRoutines} setMyRoutines={setMyRoutines} />
-      </View>
-    </SafeAreaView>
+      </KeyboardAvoidingView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.blue,
+    backgroundColor: colors.lightGray,
   },
   myRoutinesWrapper: {
     padding: 20,
     flex: 1,
-    backgroundColor: colors.lightGray,
   },
   addRoutineWrapper: {
     paddingTop: 20,
-    paddingHorizontal: 20,
+    alignItems: "center",
+    backgroundColor: colors.blue,
   },
 });
