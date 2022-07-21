@@ -4,13 +4,13 @@ import colors from "../constants/colors";
 import exercisesMap from "../constants/exercisesMap";
 
 // SHARED COMPONENT
-export default function ExercisesDisplay(props) {
+export default function displayExercises(props) {
   const { bodypart, callOnPress } = props;
   const exercisesList = exercisesMap[bodypart];
-  const [exercisesDisplay, setExercisesDisplay] = useState(false);
+  const [displayExercises, setDisplayExercises] = useState(false);
 
   const renderDisplay = () => {
-    if (exercisesDisplay) {
+    if (displayExercises) {
       return (
         <View style={styles.exercisesList}>
           {exercisesList.map((exercise, index) => {
@@ -29,8 +29,8 @@ export default function ExercisesDisplay(props) {
   };
 
   return (
-    <View style={styles.exercisesDisplayWrapper}>
-      <TouchableOpacity onPress={() => setExercisesDisplay(!exercisesDisplay)}>
+    <View style={styles.displayExercisesWrapper}>
+      <TouchableOpacity onPress={() => setDisplayExercises(!displayExercises)}>
         <Text style={styles.bodypart}>{bodypart}</Text>
       </TouchableOpacity>
       {renderDisplay()}
@@ -39,7 +39,7 @@ export default function ExercisesDisplay(props) {
 }
 
 const styles = StyleSheet.create({
-  exercisesDisplayWrapper: {
+  displayExercisesWrapper: {
     marginVertical: 2,
     paddingVertical: 4,
     paddingHorizontal: 10,

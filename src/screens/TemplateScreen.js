@@ -54,9 +54,6 @@ export default function TemplateScreen({ navigation, route }) {
       currRoutine.template.splice(index, 1);
       await AsyncStorage.setItem(routine, JSON.stringify(currRoutine));
 
-      setMyExercises([]);
-      initMyExercises();
-
       // Testing
       const updatedRoutine = JSON.parse(await AsyncStorage.getItem(routine));
       console.log("Removed exercise, updated storage:", updatedRoutine);
@@ -78,6 +75,12 @@ export default function TemplateScreen({ navigation, route }) {
 
   const handleRemoveExercise = (index) => {
     storageRemoveExercise(routine, index);
+    myExercises.splice(index, 1);
+    let currExercises = [...myExercises];
+    setMyExercises([]);
+    setTimeout(() => {
+      setMyExercises([...currExercises]);
+    }, 0);
   };
 
   const renderExercisesDisplay = () => {
